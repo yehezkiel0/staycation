@@ -1,3 +1,4 @@
+@import "colorVariables";
 @import "mixins/banner";
 @include bsBanner("");
 
@@ -54,7 +55,6 @@
 .brand-text-icon {
   font-size: 26px;
   font-weight: bold;
-  font-family: "Poppins", sans-serif;
   text-decoration: none;
   &:hover {
     color: $primary;
@@ -220,5 +220,45 @@ section {
         transform: scale(1);
       }
     }
+  }
+}
+
+.testimonial-hero,
+.testimonial-hero img {
+  width: 365px;
+  height: 500px;
+}
+
+.footer-container {
+  border-top: 1px solid $gray-200;
+  padding-top: 50px;
+
+  .brand-tagline {
+    margin-top: 8px;
+    color: $gray-500;
+    font-weight: 300;
+  }
+
+  .list-group-item {
+    padding: 0.3125rem 0;
+    border: 0;
+    a,
+    span {
+      color: $gray-500;
+      font-weight: 300;
+      text-decoration: none;
+    }
+    a {
+      &:hover,
+      &:focus {
+        color: $gray-800;
+      }
+    }
+  }
+
+  .copyrights {
+    color: $gray-500;
+    margin: 50px 0;
+    font-weight: 300;
   }
 }
