@@ -2,9 +2,6 @@ import React from "react";
 import Button from "elements/Button";
 import HeroImage from "assets/images/img-hero.jpg";
 import HeroImage_ from "assets/images/img-hero-frame.jpg";
-import IconTraveler from "assets/images/icons/icon_traveler.svg";
-import IconTreasure from "assets/images/icons/icon_treasure.svg";
-import IconCities from "assets/images/icons/icon_cities.svg";
 import numberFormat from "utils/formatNumber";
 import { Fade } from "react-awesome-reveal";
 
@@ -17,7 +14,7 @@ export default function Hero(props) {
     });
   }
   return (
-    <Fade direction="up">
+    <Fade direction="up" delay={400}>
       <section className="container pt-4">
         <div className="row align-items-center justify-content-between ">
           <div className="col-auto pr-5" style={{ width: 530 }}>
@@ -56,7 +53,7 @@ export default function Hero(props) {
                 <img
                   width="36"
                   height="36"
-                  src={IconTraveler}
+                  src="images/icon_traveler.svg"
                   alt={`${props.data.travelers} Travelers`}
                 />
                 <h6 className="mt-3">
@@ -71,7 +68,7 @@ export default function Hero(props) {
                 <img
                   width="36"
                   height="36"
-                  src={IconTreasure}
+                  src="images/icon_treasure.svg"
                   alt={`${props.data.treasures} Treasures`}
                 />
                 <h6 className="mt-3">
@@ -85,7 +82,7 @@ export default function Hero(props) {
                 <img
                   width="36"
                   height="36"
-                  src={IconCities}
+                  src="images/icon_cities.svg"
                   alt={`${props.data.treasures} Cities`}
                 />
                 <h6 className="mt-3">

@@ -5,7 +5,7 @@ import { Fade } from "react-awesome-reveal";
 export default function MostPicked(props) {
   return (
     <section className="container" ref={props.refMostPicked}>
-      <Fade direction="up" delay={400}>
+      <Fade direction="up" delay={300}>
         <h4 className="mb-3" style={{ fontWeight: 500 }}>
           Most Picked
         </h4>
@@ -16,34 +16,32 @@ export default function MostPicked(props) {
                 key={`mostpicked-${index}`}
                 className={`item column-4${index === 0 ? " row-2" : " row-1"}`}
               >
-                <Fade direction="up" delay={500 * index}>
-                  <div className="card card-featured">
-                    <div className="tag">
-                      ${item.price}
-                      <span className="font-weight-light">per {item.unit}</span>
-                    </div>
-                    <figure className="img-wrapper">
-                      <img
-                        src={item.imageUrl}
-                        alt={item.name}
-                        className="img-cover"
-                      />
-                    </figure>
-                    <div className="meta-wrapper">
-                      <Button
-                        type="link"
-                        className="stretched-link d-block text-white"
-                        href={`/properties/${item._id}`}
-                        style={{ textDecoration: "none" }}
-                      >
-                        <h5 style={{ fontWeight: 300 }}>{item.name}</h5>
-                      </Button>
-                      <span style={{ fontWeight: 100 }}>
-                        {item.city}, {item.country}
-                      </span>
-                    </div>
+                <div className="card card-featured">
+                  <div className="tag">
+                    ${item.price}
+                    <span className="font-weight-light">per {item.unit}</span>
                   </div>
-                </Fade>
+                  <figure className="img-wrapper">
+                    <img
+                      src={item.imageUrl}
+                      alt={item.name}
+                      className="img-cover"
+                    />
+                  </figure>
+                  <div className="meta-wrapper">
+                    <Button
+                      type="link"
+                      className="stretched-link d-block text-white"
+                      href={`/properties/${item._id}`}
+                      style={{ textDecoration: "none" }}
+                    >
+                      <h5 style={{ fontWeight: 300 }}>{item.name}</h5>
+                    </Button>
+                    <span style={{ fontWeight: 100 }}>
+                      {item.city}, {item.country}
+                    </span>
+                  </div>
+                </div>
               </div>
             );
           })}

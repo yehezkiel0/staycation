@@ -61,6 +61,13 @@
   }
 }
 
+.btn {
+  text-align: center;
+  justify-content: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
 .hover {
   text-decoration: none;
   &:hover {
@@ -127,8 +134,19 @@ section {
   color: $gray-500;
 }
 
+.text-gray-400 {
+  color: $gray-400;
+}
+
+.text-gray-900 {
+  color: $gray-900;
+}
+
 .card {
-  height: 100%;
+  &.bordered {
+    border: 1px solid $gray-200;
+  }
+  border-radius: 15px;
 
   .tag {
     z-index: 3;
@@ -168,7 +186,6 @@ section {
     overflow: hidden;
     cursor: pointer;
     height: 100%;
-    border-radius: 15px;
     &:after {
       position: absolute;
       content: "";
@@ -259,6 +276,13 @@ section {
   .copyrights {
     color: $gray-500;
     margin: 50px 0;
+    font-weight: 300;
+  }
+}
+
+main {
+  p {
+    color: $gray-500;
     font-weight: 300;
   }
 }

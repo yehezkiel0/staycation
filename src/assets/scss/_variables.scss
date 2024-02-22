@@ -526,7 +526,7 @@ $border-color-translucent: rgba($black, 0.175) !default;
 // scss-docs-end border-variables
 
 // scss-docs-start border-radius-variables
-$border-radius: 0.375rem !default;
+$border-radius: 0.9875rem !default;
 $border-radius-sm: 0.25rem !default;
 $border-radius-lg: 0.5rem !default;
 $border-radius-xl: 1rem !default;
@@ -1674,7 +1674,7 @@ $figure-caption-color: var(--#{$prefix}secondary-color) !default;
 $breadcrumb-font-size: null !default;
 $breadcrumb-padding-y: 0 !default;
 $breadcrumb-padding-x: 0 !default;
-$breadcrumb-item-padding-x: 0.5rem !default;
+$breadcrumb-item-padding-x: 1.5rem !default;
 $breadcrumb-margin-bottom: 1rem !default;
 $breadcrumb-bg: null !default;
 $breadcrumb-divider-color: var(--#{$prefix}secondary-color) !default;
