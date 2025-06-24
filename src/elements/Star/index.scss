@@ -1,20 +1,22 @@
 @import "../../assets/scss/colorVariables";
 
 .stars {
-  position: relative;
-  min-width: 200px;
-  display: inline-flex;
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  
   .star {
-    position: absolute;
-    display: inline-flex;
-    mask: url("../../assets/images/icons/star.svg") no-repeat center left;
-    &:not(.placeholder) {
-      z-index: 2;
+    display: inline-block;
+    mask: url("../../assets/images/icons/star.svg") no-repeat center;
+    mask-size: contain;
+    flex-shrink: 0;
+    
+    &.filled {
       background-color: $yellow;
     }
-    &.placeholder {
-      z-index: 1;
-      background-color: $gray-500;
+    
+    &.empty {
+      background-color: $gray-300;
     }
   }
 }

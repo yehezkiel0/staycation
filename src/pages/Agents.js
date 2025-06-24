@@ -235,19 +235,20 @@ export default function Agents() {
                         <p className="text-muted mb-0 small">
                           {agent.location}
                         </p>
-                      </div>
-                    </div>
+                      </div>                    </div>
 
                     {/* Rating and Stats */}
-                    <div className="d-flex align-items-center mb-3">
-                      <Star
-                        value={agent.rating}
-                        width={80}
-                        height={16}
-                        spacing={1}
-                      />
-                      <span className="ms-2 fw-bold">{agent.rating}</span>
-                      <span className="ms-1 text-muted small">
+                    <div className="rating-section d-flex align-items-center mb-3">
+                      <div className="star-rating d-flex align-items-center">
+                        <Star
+                          value={agent.rating}
+                          width={14}
+                          height={14}
+                          spacing={1}
+                        />
+                      </div>
+                      <span className="rating-value ms-2 fw-bold">{agent.rating}</span>
+                      <span className="rating-reviews ms-2 text-muted small">
                         ({agent.reviews} reviews)
                       </span>
                     </div>
@@ -408,9 +409,7 @@ export default function Agents() {
         </div>
       </section>
 
-      <Footer />
-
-      <style jsx>{`
+      <Footer />      <style jsx>{`
         .agent-card {
           transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
@@ -418,6 +417,68 @@ export default function Agents() {
         .agent-card:hover {
           transform: translateY(-5px);
           box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+        }        /* Star Rating Fix */
+        .rating-section {
+          display: flex !important;
+          align-items: center !important;
+          gap: 0.25rem;
+        }
+
+        .star-rating {
+          display: flex !important;
+          align-items: center !important;
+        }
+
+        :global(.stars) {
+          min-width: auto !important;
+          width: auto !important;
+          height: 14px !important;
+          display: flex !important;
+          position: relative !important;
+          gap: 1px;
+        }
+
+        :global(.stars .star) {
+          width: 14px !important;
+          height: 14px !important;
+          position: relative !important;
+          display: inline-block !important;
+          margin-right: 1px !important;
+          flex-shrink: 0;
+        }
+
+        .rating-value {
+          font-size: 0.9rem;
+          color: #333;
+        }
+
+        .rating-reviews {
+          font-size: 0.8rem;
+          white-space: nowrap;
+        }
+
+        /* Button Outline Primary Fix */
+        .btn-outline-primary {
+          border: 2px solid #007bff;
+          color: #007bff;
+          background: white;
+          transition: all 0.3s ease;
+        }
+
+        .btn-outline-primary:hover {
+          background: #007bff;
+          border-color: #007bff;
+          color: white !important;
+          transform: translateY(-2px);
+          box-shadow: 0 8px 20px rgba(0, 123, 255, 0.3);
+        }
+
+        .btn-outline-primary:focus,
+        .btn-outline-primary:active {
+          background: #0056b3 !important;
+          border-color: #0056b3 !important;
+          color: white !important;
+          box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25) !important;
         }
       `}</style>
     </>
