@@ -94,6 +94,7 @@ export default class BookingForm extends Component {
 
           <label htmlFor="duration">How long you will stay?</label>
           <InputNumber
+            id="duration"
             max={30}
             suffix={" night"}
             isSuffixPlural
@@ -103,7 +104,12 @@ export default class BookingForm extends Component {
           />
 
           <label htmlFor="date">Pick a date</label>
-          <InputDate onChange={this.updateData} name="date" value={data.date} />
+          <InputDate
+            id="date"
+            onChange={this.updateData}
+            name="date"
+            value={data.date}
+          />
 
           <h6
             className="text-gray-500 font-weight-light"

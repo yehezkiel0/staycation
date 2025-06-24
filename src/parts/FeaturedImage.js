@@ -13,7 +13,7 @@ export default function FeaturedImage({ data }) {
                 index > 0 ? "row-1" : "row-2"
               }`}
             >
-              <Fade direction="up" delay={300 * index}>
+              <Fade direction="up" delay={500 * index}>
                 <div className="card h-100">
                   <figure className="img-wrapper">
                     <img className="img-cover" src={item.url} alt={item._id} />
