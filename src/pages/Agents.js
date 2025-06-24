@@ -476,9 +476,143 @@ export default function Agents() {
         .btn-outline-primary:focus,
         .btn-outline-primary:active {
           background: #0056b3 !important;
-          border-color: #0056b3 !important;
-          color: white !important;
+          border-color: #0056b3 !important;          color: white !important;
           box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25) !important;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 767.98px) {
+          .container {
+            padding-left: 1rem;
+            padding-right: 1rem;
+          }
+
+          .display-4 {
+            font-size: 2rem;
+          }
+
+          .lead {
+            font-size: 1rem;
+          }
+
+          .agent-card {
+            margin-bottom: 1.5rem;
+          }
+
+          .card-body {
+            padding: 1rem;
+          }
+
+          .btn {
+            padding: 12px 20px;
+            font-size: 0.9rem;
+            width: 100%;
+            margin-bottom: 0.5rem;
+          }
+
+          .row.g-2 .col-4 {
+            margin-bottom: 0.5rem;
+          }
+
+          .d-flex.gap-2 {
+            flex-wrap: wrap;
+            gap: 0.25rem !important;
+          }
+
+          .badge {
+            font-size: 0.7rem;
+            padding: 0.25rem 0.5rem;
+          }
+
+          .h5 {
+            font-size: 1.1rem;
+          }
+
+          .small {
+            font-size: 0.8rem;
+          }
+
+          .rating-section {
+            flex-direction: column;
+            align-items: flex-start !important;
+            gap: 0.5rem;
+          }
+
+          .star-rating {
+            margin-bottom: 0.25rem;
+          }
+
+          .rating-value,
+          .rating-reviews {
+            margin: 0 !important;
+          }
+
+          .pt-4 {
+            padding-top: 2rem !important;
+          }
+
+          .pb-5 {
+            padding-bottom: 2rem !important;
+          }
+
+          .mb-5 {
+            margin-bottom: 2rem !important;
+          }
+
+          .section-padding {
+            padding: 2rem 0;
+          }
+        }
+
+        /* Tablet Responsive */
+        @media (min-width: 768px) and (max-width: 991.98px) {
+          .container {
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+          }
+
+          .display-4 {
+            font-size: 2.5rem;
+          }
+
+          .card-body {
+            padding: 1.25rem;
+          }
+
+          .btn {
+            padding: 13px 22px;
+            font-size: 0.95rem;
+          }
+
+          .rating-section {
+            gap: 0.5rem;
+          }
+        }
+
+        /* Desktop improvements */
+        @media (min-width: 992px) {
+          .agent-card:hover {
+            transform: translateY(-5px);
+          }
+
+          .btn-outline-primary:hover {
+            transform: translateY(-2px);
+          }
+        }
+
+        /* Touch device improvements */
+        @media (hover: none) and (pointer: coarse) {
+          .agent-card:hover {
+            transform: none;
+          }
+
+          .btn-outline-primary:hover {
+            transform: none;
+          }
+
+          .btn {
+            min-height: 44px;
+          }
         }
       `}</style>
     </>

@@ -957,33 +957,122 @@ export default function Stories() {
           right: 0;
           bottom: 0;
           background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
+        }        /* Responsive Design */
+        @media (max-width: 767.98px) {
           .hero-title {
-            font-size: 2.5rem;
+            font-size: 2rem;
           }
 
           .floating-cards {
-            height: 300px;
+            height: 250px;
+            display: none; /* Hide floating cards on very small screens */
           }
 
           .card-1,
           .card-2,
           .card-3 {
-            width: 120px;
-            height: 160px;
+            width: 100px;
+            height: 140px;
           }
 
           .stories-masonry {
             grid-template-columns: 1fr;
-            grid-auto-rows: 400px;
+            grid-auto-rows: 350px;
+            gap: 1rem;
           }
 
           .trending-slide {
-            width: 300px;
-            height: 450px;
+            width: 280px;
+            height: 400px;
+          }
+
+          .hero-stats .col-4 {
+            margin-bottom: 1rem;
+          }
+
+          .hero-actions {
+            flex-direction: column;
+            gap: 0.5rem;
+          }
+
+          .hero-actions .btn {
+            width: 100%;
+            margin: 0;
+          }
+
+          .featured-story-card .row {
+            flex-direction: column-reverse;
+          }
+
+          .featured-story-card .col-lg-7,
+          .featured-story-card .col-lg-5 {
+            flex: none;
+            width: 100%;
+          }
+
+          .story-content {
+            padding: 1.5rem !important;
+          }
+
+          .story-image-wrapper {
+            min-height: 250px !important;
+          }
+
+          .trending-swiper {
+            padding: 15px 0 40px 0;
+          }
+
+          .container {
+            padding-left: 1rem;
+            padding-right: 1rem;
+          }
+
+          .min-vh-75 {
+            min-height: 60vh;
+          }
+
+          .display-3 {
+            font-size: 2.5rem;
+          }
+
+          .display-5 {
+            font-size: 1.75rem;
+          }
+        }
+
+        @media (min-width: 768px) and (max-width: 991.98px) {
+          .hero-title {
+            font-size: 3rem;
+          }
+
+          .floating-cards {
+            height: 350px;
+          }
+
+          .card-1,
+          .card-2,
+          .card-3 {
+            width: 140px;
+            height: 190px;
+          }
+
+          .stories-masonry {
+            grid-template-columns: repeat(2, 1fr);
+            grid-auto-rows: 350px;
+          }
+
+          .trending-slide {
+            width: 320px;
+            height: 420px;
+          }
+
+          .story-content {
+            padding: 2rem !important;
+          }
+
+          .container {
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
           }
         }
 
@@ -1006,7 +1095,8 @@ export default function Stories() {
           width: 44px;
           height: 44px;
           box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }        .swiper-button-next:after,
+        }
+        .swiper-button-next:after,
         .swiper-button-prev:after {
           font-size: 18px;
         }
