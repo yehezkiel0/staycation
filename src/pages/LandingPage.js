@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect, useRef } from "react";
 import Header from "parts/Header";
 import Hero from "parts/Hero";
 import MostPicked from "parts/MostPicked";
@@ -6,28 +6,40 @@ import landingPage from "json/landingPage.json";
 import Categories from "parts/Categories";
 import Testimony from "parts/Testimony";
 import Footer from "parts/Footer";
-export default class LandingPage extends Component {
-  constructor(props) {
-    super(props);
-    this.refMostPicked = React.createRef();
-  }
-  componentDidMount() {
+import { Fade, Slide, Zoom } from "react-awesome-reveal";
+
+export default function LandingPage() {
+  const refMostPicked = useRef();
+
+  useEffect(() => {
     document.title = "Staycation | Home";
     window.scrollTo(0, 0);
-  }
-  render() {
-    return (
-      <>
-        <Header {...this.props} />
-        <Hero refMostPicked={this.refMostPicked} data={landingPage.hero} />
+  }, []);
+
+  return (
+    <>
+      <Header />
+
+      <Fade triggerOnce>
+        <Hero refMostPicked={refMostPicked} data={landingPage.hero} />
+      </Fade>
+
+      <Slide direction="up" triggerOnce>
         <MostPicked
-          refMostPicked={this.refMostPicked}
+          refMostPicked={refMostPicked}
           data={landingPage.mostPicked}
         />
+      </Slide>
+
+      <Zoom triggerOnce>
         <Categories data={landingPage.categories} />
+      </Zoom>
+
+      <Fade direction="up" triggerOnce>
         <Testimony data={landingPage.testimonial} />
-        <Footer />
-      </>
-    );
-  }
+      </Fade>
+
+      <Footer />
+    </>
+  );
 }
