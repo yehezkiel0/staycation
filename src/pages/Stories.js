@@ -1006,11 +1006,56 @@ export default function Stories() {
           width: 44px;
           height: 44px;
           box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .swiper-button-next:after,
+        }        .swiper-button-next:after,
         .swiper-button-prev:after {
           font-size: 18px;
+        }
+
+        /* Button Fixes for Hover States */
+        .btn-outline-primary {
+          border: 2px solid #007bff;
+          color: #007bff;
+          background: white;
+          transition: all 0.3s ease;
+        }
+
+        .btn-outline-primary:hover {
+          background: #007bff;
+          border-color: #007bff;
+          color: white !important;
+          transform: translateY(-2px);
+          box-shadow: 0 8px 20px rgba(0, 123, 255, 0.3);
+        }
+
+        .btn-outline-primary:focus,
+        .btn-outline-primary:active {
+          background: #0056b3 !important;
+          border-color: #0056b3 !important;
+          color: white !important;
+          box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25) !important;
+        }
+
+        .btn-outline-light {
+          border: 2px solid rgba(255, 255, 255, 0.5);
+          color: white;
+          background: transparent;
+          transition: all 0.3s ease;
+        }
+
+        .btn-outline-light:hover {
+          background: rgba(255, 255, 255, 0.2);
+          border-color: white;
+          color: white !important;
+          transform: translateY(-2px);
+          box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-outline-light:focus,
+        .btn-outline-light:active {
+          background: rgba(255, 255, 255, 0.3) !important;
+          border-color: white !important;
+          color: white !important;
+          box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25) !important;
         }
       `}</style>
     </>

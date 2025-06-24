@@ -276,6 +276,36 @@ export default function Categories({ data }) {
         .swiper-button-next:after,
         .swiper-button-prev:after {
           font-size: 16px;
+        }        /* Button View Details Fix */
+        .btn-outline-primary {
+          border: 2px solid #007bff;
+          color: #007bff;
+          background: white;
+          transition: all 0.3s ease;
+        }
+
+        .btn-outline-primary:hover {
+          background: #007bff;
+          border-color: #007bff;
+          color: white !important;
+          transform: translateY(-2px);
+          box-shadow: 0 8px 20px rgba(0, 123, 255, 0.3);
+        }
+
+        .btn-outline-primary:focus,
+        .btn-outline-primary:active {
+          background: #0056b3 !important;
+          border-color: #0056b3 !important;
+          color: white !important;
+          box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25) !important;
+        }
+
+        .btn-outline-primary i {
+          transition: transform 0.3s ease;
+        }
+
+        .btn-outline-primary:hover i {
+          transform: scale(1.1);
         }
 
         /* Responsive */

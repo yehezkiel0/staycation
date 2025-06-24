@@ -209,15 +209,37 @@ export default function BrowseBy() {
 
         .category-card:hover .category-image {
           transform: scale(1.05);
-        }
-
-        .category-overlay {
+        }        .category-overlay {
           position: absolute;
           top: 0;
           left: 0;
           right: 0;
           bottom: 0;
           background: linear-gradient(45deg, rgba(0, 0, 0, 0.1), transparent);
+        }
+
+        /* Button Outline Primary Fix */
+        .btn-outline-primary {
+          border: 2px solid #007bff;
+          color: #007bff;
+          background: white;
+          transition: all 0.3s ease;
+        }
+
+        .btn-outline-primary:hover {
+          background: #007bff;
+          border-color: #007bff;
+          color: white !important;
+          transform: translateY(-2px);
+          box-shadow: 0 8px 20px rgba(0, 123, 255, 0.3);
+        }
+
+        .btn-outline-primary:focus,
+        .btn-outline-primary:active {
+          background: #0056b3 !important;
+          border-color: #0056b3 !important;
+          color: white !important;
+          box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25) !important;
         }
       `}</style>
     </>
