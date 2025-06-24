@@ -169,7 +169,8 @@ export default function Header(props) {
               </ul>
             </div>
           </nav>
-        </div>        <style jsx>{`
+        </div>
+        <style jsx>{`
           .nav-link-custom {
             transition: all 0.3s ease;
             font-weight: 500;
@@ -228,94 +229,6 @@ export default function Header(props) {
           .dropdown-item:hover {
             background-color: #f8f9fa;
             transform: translateX(5px);
-          }
-
-          /* Mobile Responsive */
-          @media (max-width: 991.98px) {
-            .navbar-nav {
-              padding-top: 1rem;
-              padding-bottom: 1rem;
-              text-align: center;
-            }
-
-            .nav-item {
-              margin: 0.25rem 0;
-            }
-
-            .nav-link-custom {
-              display: block;
-              width: 100%;
-              text-align: center;
-              padding: 0.75rem 1rem !important;
-              margin: 0.25rem 0 !important;
-              border-radius: 8px !important;
-            }
-
-            .btn-primary, .btn-outline-primary {
-              width: 100%;
-              margin: 0.5rem 0;
-              padding: 12px 20px;
-              font-size: 1rem;
-            }
-
-            .dropdown-menu {
-              position: static !important;
-              transform: none !important;
-              border: 1px solid #dee2e6;
-              box-shadow: none;
-              margin-top: 0.5rem;
-            }
-          }
-
-          /* Tablet Responsive */
-          @media (min-width: 768px) and (max-width: 991.98px) {
-            .navbar {
-              padding: 0.75rem 0;
-            }
-
-            .nav-link-custom {
-              padding: 0.5rem 0.75rem !important;
-              margin: 0 0.25rem !important;
-              font-size: 0.9rem;
-            }
-
-            .btn-primary, .btn-outline-primary {
-              padding: 10px 16px;
-              font-size: 0.9rem;
-            }
-          }
-
-          /* Desktop hover effects only */
-          @media (min-width: 992px) {
-            .navbar-brand:hover {
-              transform: scale(1.05);
-            }
-
-            .btn-primary:hover {
-              transform: translateY(-2px);
-              box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
-            }
-
-            .btn-outline-primary:hover {
-              transform: translateY(-1px);
-              box-shadow: 0 3px 10px rgba(0, 123, 255, 0.2);
-            }
-          }
-
-          /* Touch device improvements */
-          @media (hover: none) and (pointer: coarse) {
-            .nav-link-custom:hover {
-              background-color: transparent;
-            }
-
-            .btn-primary:hover, .btn-outline-primary:hover, .navbar-brand:hover {
-              transform: none;
-              box-shadow: initial;
-            }
-
-            .dropdown-item:hover {
-              transform: none;
-            }
           }
         `}</style>
       </header>

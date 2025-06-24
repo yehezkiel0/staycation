@@ -264,7 +264,9 @@ export default function Footer() {
             </div>
           </div>
         </div>
-      </div>      <style jsx>{`
+      </div>
+
+      <style jsx>{`
         .footer-link {
           transition: all 0.3s ease;
           text-decoration: none !important;
@@ -283,113 +285,6 @@ export default function Footer() {
 
         .brand-text-icon:hover {
           transform: scale(1.05);
-        }
-
-        /* Mobile Responsive */
-        @media (max-width: 767.98px) {
-          .container {
-            padding-left: 1rem;
-            padding-right: 1rem;
-          }
-
-          .row {
-            text-align: center;
-          }
-
-          .col-lg-4, .col-lg-2, .col-lg-3 {
-            margin-bottom: 2rem;
-          }
-
-          .brand-text-icon {
-            font-size: 1.3rem;
-          }
-
-          .footer-link {
-            display: block;
-            padding: 0.5rem 0;
-            font-size: 0.9rem;
-          }
-
-          .d-flex.gap-3 {
-            justify-content: center;
-            margin-bottom: 1.5rem;
-          }
-
-          .btn-outline-light {
-            width: 35px;
-            height: 35px;
-            font-size: 0.8rem;
-          }
-
-          h6 {
-            font-size: 1rem;
-            margin-bottom: 1rem;
-          }
-
-          p {
-            font-size: 0.9rem;
-            line-height: 1.6;
-          }
-        }
-
-        /* Tablet Responsive */
-        @media (min-width: 768px) and (max-width: 991.98px) {
-          .container {
-            padding-left: 1.5rem;
-            padding-right: 1.5rem;
-          }
-
-          .col-lg-4, .col-lg-2, .col-lg-3 {
-            margin-bottom: 1.5rem;
-          }
-
-          .brand-text-icon {
-            font-size: 1.4rem;
-          }
-
-          .footer-link {
-            font-size: 0.95rem;
-            padding: 0.25rem 0;
-          }
-
-          .btn-outline-light {
-            width: 38px;
-            height: 38px;
-          }
-        }
-
-        /* Desktop hover effects only */
-        @media (min-width: 992px) {
-          .footer-link:hover {
-            transform: translateX(5px);
-          }
-
-          .brand-text-icon:hover {
-            transform: scale(1.05);
-          }
-        }
-
-        /* Touch device improvements */
-        @media (hover: none) and (pointer: coarse) {
-          .footer-link:hover {
-            transform: none;
-          }
-
-          .brand-text-icon:hover {
-            transform: none;
-          }
-
-          .btn-outline-light {
-            min-height: 44px;
-            min-width: 44px;
-          }
-        }
-
-        /* Large desktop improvements */
-        @media (min-width: 1200px) {
-          .container {
-            max-width: 1200px;
-          }
         }
       `}</style>
     </footer>
