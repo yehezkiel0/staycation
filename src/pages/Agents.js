@@ -125,7 +125,6 @@ export default function Agents() {
   return (
     <>
       <Header />
-
       {/* Hero Section */}
       <section className="container pt-4 pb-5">
         <Fade direction="up" triggerOnce>
@@ -140,7 +139,6 @@ export default function Agents() {
           </div>
         </Fade>
       </section>
-
       {/* Filter Section */}
       <section className="container mb-5">
         <Fade direction="up" triggerOnce delay={200}>
@@ -189,7 +187,6 @@ export default function Agents() {
           </div>
         </Fade>
       </section>
-
       {/* Agents Grid */}
       <section className="container pb-5">
         <div className="row g-4">
@@ -236,7 +233,8 @@ export default function Agents() {
                           {agent.location}
                         </p>
                       </div>
-                    </div>                    {/* Rating and Stats */}
+                    </div>{" "}
+                    {/* Rating and Stats */}
                     <div className="d-flex align-items-center mb-3">
                       <div className="star-rating-container d-flex align-items-center">
                         <Star
@@ -246,12 +244,13 @@ export default function Agents() {
                           spacing={1}
                         />
                       </div>
-                      <span className="ms-2 fw-bold text-warning">{agent.rating}</span>
+                      <span className="ms-2 fw-bold text-warning">
+                        {agent.rating}
+                      </span>
                       <span className="ms-2 text-muted small">
                         ({agent.reviews} reviews)
                       </span>
                     </div>
-
                     {/* Quick Stats */}
                     <div className="row g-2 mb-3">
                       <div className="col-4">
@@ -279,7 +278,6 @@ export default function Agents() {
                         </div>
                       </div>
                     </div>
-
                     {/* Bio */}
                     <p
                       className="card-text text-gray-600 mb-3"
@@ -287,7 +285,6 @@ export default function Agents() {
                     >
                       {agent.bio}
                     </p>
-
                     {/* Languages */}
                     <div className="mb-3">
                       <div className="small text-muted mb-1">Languages:</div>
@@ -303,7 +300,6 @@ export default function Agents() {
                         ))}
                       </div>
                     </div>
-
                     {/* Specialties */}
                     <div className="mb-4">
                       <div className="small text-muted mb-1">Specialties:</div>
@@ -319,7 +315,6 @@ export default function Agents() {
                         ))}
                       </div>
                     </div>
-
                     {/* Action Buttons */}
                     <div className="d-grid gap-2">
                       <Button className="btn btn-primary" type="button">
@@ -339,7 +334,6 @@ export default function Agents() {
           ))}
         </div>
       </section>
-
       {/* Become an Agent Section */}
       <section className="bg-light py-5">
         <div className="container">
@@ -407,8 +401,8 @@ export default function Agents() {
           </Fade>
         </div>
       </section>
-
-      <Footer />      <style jsx>{`
+      <Footer />{" "}
+      <style>{`
         .agent-card {
           transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
@@ -416,7 +410,8 @@ export default function Agents() {
         .agent-card:hover {
           transform: translateY(-5px);
           box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
-        }        .star-rating-container {
+        }
+        .star-rating-container {
           display: flex;
           align-items: center;
           height: auto;

@@ -12,7 +12,12 @@ import Register from "pages/Register";
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
+      <BrowserRouter
+        future={{
+          v7_startTransition: true,
+          v7_relativeSplatPath: true,
+        }}
+      >
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/properties/:id" element={<DetailsPage />} />

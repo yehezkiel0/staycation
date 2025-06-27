@@ -170,7 +170,7 @@ export default function Header(props) {
             </div>
           </nav>
         </div>
-        <style jsx>{`
+        <style>{`
           .nav-link-custom {
             transition: all 0.3s ease;
             font-weight: 500;

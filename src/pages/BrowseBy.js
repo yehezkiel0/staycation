@@ -193,7 +193,7 @@ export default function BrowseBy() {
 
       <Footer />
 
-      <style jsx>{`
+      <style>{`
         .category-card {
           transition: transform 0.3s ease, box-shadow 0.3s ease;
         }

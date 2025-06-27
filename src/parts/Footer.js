@@ -266,7 +266,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         .footer-link {
           transition: all 0.3s ease;
           text-decoration: none !important;

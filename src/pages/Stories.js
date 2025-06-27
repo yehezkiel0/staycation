@@ -645,7 +645,7 @@ export default function Stories() {
         </div>
       </section>{" "}
       <Footer />
-      <style jsx>{`
+      <style>{`
         /* Enhanced Hero Section */
         .stories-hero {
           background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
