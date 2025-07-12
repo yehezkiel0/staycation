@@ -1,10 +1,19 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "parts/Header";
 import Footer from "parts/Footer";
 import { Fade } from "react-awesome-reveal";
 import Button from "elements/Button";
 import Star from "elements/Star";
 import api from "services/api";
+
+// Constants
+const PRICE_RANGES = [
+  { label: "Under $100", min: 0, max: 100 },
+  { label: "$100 - $250", min: 100, max: 250 },
+  { label: "$250 - $500", min: 250, max: 500 },
+  { label: "$500 - $1000", min: 500, max: 1000 },
+  { label: "Above $1000", min: 1000, max: Infinity },
+];
 
 export default function BrowseBy() {
   const [categories, setCategories] = useState([]);
@@ -35,42 +44,12 @@ export default function BrowseBy() {
         ]
       : [];
 
-  const priceRanges = [
-    { label: "Under $100", min: 0, max: 100 },
-    { label: "$100 - $250", min: 100, max: 250 },
-    { label: "$250 - $500", min: 250, max: 500 },
-    { label: "$500 - $1000", min: 500, max: 1000 },
-    { label: "Above $1000", min: 1000, max: Infinity },
-  ];
-
   useEffect(() => {
     fetchData();
   }, []);
 
+  // Effect for filtering properties when dependencies change
   useEffect(() => {
-    filterProperties();
-  }, [filterProperties]);
-
-  const fetchData = async () => {
-    try {
-      setLoading(true);
-      const [categoriesResponse, propertiesResponse] = await Promise.all([
-        api.getCategories(),
-        api.getProperties(),
-      ]);
-
-      setCategories(categoriesResponse.categories || []);
-      setProperties(propertiesResponse.properties || []);
-      setError(null);
-    } catch (err) {
-      console.error("Error fetching data:", err);
-      setError("Failed to load data. Please try again later.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const filterProperties = useCallback(() => {
     if (!properties || properties.length === 0) {
       setFilteredProperties([]);
       return;
@@ -99,20 +78,18 @@ export default function BrowseBy() {
 
     // Filter by price range
     if (selectedPrice !== "all") {
-      const priceRange = priceRanges.find(
-        (range) => range.label === selectedPrice
-      );
-      if (priceRange) {
+      const range = PRICE_RANGES.find((r) => r.label === selectedPrice);
+      if (range) {
         filtered = filtered.filter((property) => {
           const price = property.price?.amount || property.price || 0;
-          return price >= priceRange.min && price <= priceRange.max;
+          return price >= range.min && price <= range.max;
         });
       }
     }
 
     // Filter by search query
     if (searchQuery.trim()) {
-      const query = searchQuery.toLowerCase();
+      const query = searchQuery.toLowerCase().trim();
       filtered = filtered.filter(
         (property) =>
           (property.title || property.name || "")
@@ -137,10 +114,29 @@ export default function BrowseBy() {
     searchQuery,
   ]);
 
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      const [categoriesResponse, propertiesResponse] = await Promise.all([
+        api.getCategories(),
+        api.getProperties(),
+      ]);
+
+      setCategories(categoriesResponse.categories || []);
+      setProperties(propertiesResponse.properties || []);
+      setError(null);
+    } catch (err) {
+      console.error("Error fetching data:", err);
+      setError("Failed to load data. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleSearch = () => {
     // The filtering is already handled by useEffect
     // This function can be used for additional search logic if needed
-    filterProperties();
+    console.log("Search triggered with query:", searchQuery);
   };
 
   return (
@@ -223,7 +219,7 @@ export default function BrowseBy() {
                       onChange={(e) => setSelectedPrice(e.target.value)}
                     >
                       <option value="all">All Prices</option>
-                      {priceRanges.map((price, index) => (
+                      {PRICE_RANGES.map((price, index) => (
                         <option key={index} value={price.label}>
                           {price.label}
                         </option>
