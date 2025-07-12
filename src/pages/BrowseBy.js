@@ -5,14 +5,15 @@ import { Fade } from "react-awesome-reveal";
 import Button from "elements/Button";
 import Star from "elements/Star";
 import api from "services/api";
+import { formatPrice } from "utils/currency";
 
 // Constants
 const PRICE_RANGES = [
-  { label: "Under $100", min: 0, max: 100 },
-  { label: "$100 - $250", min: 100, max: 250 },
-  { label: "$250 - $500", min: 250, max: 500 },
-  { label: "$500 - $1000", min: 500, max: 1000 },
-  { label: "Above $1000", min: 1000, max: Infinity },
+  { label: "Di bawah Rp 1.500.000", min: 0, max: 100 },
+  { label: "Rp 1.500.000 - Rp 3.750.000", min: 100, max: 250 },
+  { label: "Rp 3.750.000 - Rp 7.500.000", min: 250, max: 500 },
+  { label: "Rp 7.500.000 - Rp 15.000.000", min: 500, max: 1000 },
+  { label: "Di atas Rp 15.000.000", min: 1000, max: Infinity },
 ];
 
 export default function BrowseBy() {
@@ -407,11 +408,10 @@ export default function BrowseBy() {
                       {/* Price */}
                       <div className="position-absolute bottom-0 end-0 m-3">
                         <span className="badge bg-dark text-white px-3 py-2 rounded-pill">
-                          ${property.price?.amount || property.price}{" "}
-                          <small>
-                            per{" "}
-                            {property.price?.unit || property.unit || "night"}
-                          </small>
+                          {formatPrice(
+                            property.price?.amount || property.price,
+                            property.price?.unit || property.unit || "night"
+                          )}
                         </span>
                       </div>
                     </div>

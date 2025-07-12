@@ -5,6 +5,7 @@ import propTypes from "prop-types";
 import { Fade } from "react-awesome-reveal";
 import Button from "elements/Button";
 import { InputNumber, InputDate } from "elements/Form";
+import { formatPrice, convertUSDToIDR, formatIDRCurrency } from "utils/currency";
 
 export default class BookingForm extends Component {
   constructor(props) {
@@ -86,10 +87,7 @@ export default class BookingForm extends Component {
         <div className="card bordered" style={{ padding: "60px 80px" }}>
           <h4 className="mb-3">Start Booking</h4>
           <h5 className="h2 mb-4" style={{ color: "#1abc9c" }}>
-            ${itemDetails.price}{" "}
-            <span className="text-gray-500 font-weight-light">
-              per {itemDetails.unit}
-            </span>
+            {formatPrice(itemDetails.price, itemDetails.unit)}
           </h5>
 
           <label htmlFor="duration">How long you will stay?</label>
@@ -117,7 +115,7 @@ export default class BookingForm extends Component {
           >
             You will pay{" "}
             <span className="text-gray-900">
-              ${itemDetails.price * data.duration} USD
+              {formatIDRCurrency(convertUSDToIDR(itemDetails.price * data.duration))}
             </span>{" "}
             per{" "}
             <span className="text-gray-900">

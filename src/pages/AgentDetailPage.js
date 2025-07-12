@@ -7,6 +7,7 @@ import { Fade } from "react-awesome-reveal";
 import Button from "elements/Button";
 import Star from "elements/Star";
 import { agentsAPI } from "services/api";
+import { formatPrice } from "utils/currency";
 
 export default function AgentDetailPage() {
   const { id } = useParams();
@@ -360,18 +361,10 @@ export default function AgentDetailPage() {
                                 </p>
                                 <div className="d-flex justify-content-between align-items-center">
                                   <span className="text-primary fw-bold">
-                                    $
-                                    {property.price?.amount ||
-                                      property.price ||
-                                      "N/A"}
-                                    {property.price?.per &&
-                                      `/${property.price.per}`}
-                                    {!property.price?.per &&
-                                      property.unit &&
-                                      `/${property.unit}`}
-                                    {!property.price?.per &&
-                                      !property.unit &&
-                                      "/night"}
+                                    {formatPrice(
+                                      property.price?.amount || property.price,
+                                      property.price?.per || property.unit || "night"
+                                    )}
                                   </span>
                                   <Button
                                     className="btn btn-sm btn-outline-primary"

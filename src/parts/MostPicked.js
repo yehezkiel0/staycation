@@ -4,6 +4,7 @@ import { Fade, Slide } from "react-awesome-reveal";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import Star from "elements/Star";
+import { formatPrice } from "utils/currency";
 
 // Import Swiper styles
 import "swiper/css";
@@ -161,7 +162,7 @@ export default function MostPicked(props) {
                   {/* Price */}
                   <div className="position-absolute bottom-0 end-0 m-3">
                     <span className="badge bg-dark text-white px-3 py-2 rounded-pill">
-                      ${item.price} <small>per {item.unit || "night"}</small>
+                      {formatPrice(item.price, item.unit || "night")}
                     </span>
                   </div>
                 </div>
