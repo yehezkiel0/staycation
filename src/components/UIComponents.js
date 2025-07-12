@@ -168,10 +168,12 @@ export const Toast = ({
   );
 };
 
-export default {
+const UIComponents = {
   LoadingSpinner,
   ErrorMessage,
   EmptyState,
   NetworkError,
   Toast,
 };
+
+export default UIComponents;

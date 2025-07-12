@@ -90,15 +90,6 @@ export default function AgentDetailPage() {
     return null;
   }
 
-  const breadcrumb = [
-    { pageTitle: "Home", pageHref: "/" },
-    { pageTitle: "Agents", pageHref: "/agents" },
-    {
-      pageTitle: `${agent.user?.firstName} ${agent.user?.lastName}`,
-      pageHref: "",
-    },
-  ];
-
   return (
     <>
       <Header />
@@ -120,7 +111,6 @@ export default function AgentDetailPage() {
             </nav>
           </section>
         </Fade>
-
         <Fade direction="up" triggerOnce>
           <section className="container">
             <div className="row">
@@ -482,7 +472,8 @@ export default function AgentDetailPage() {
               </Button>
             </div>
           </section>
-        </Fade>      </main>
+        </Fade>{" "}
+      </main>
       <Footer />
     </>
   );

@@ -97,9 +97,8 @@ export default function Header(props) {
                 {/* Auth Section */}
                 {isLoggedIn ? (
                   <li className="nav-item dropdown ms-2">
-                    <a
-                      className="nav-link dropdown-toggle d-flex align-items-center"
-                      href="#"
+                    <button
+                      className="nav-link dropdown-toggle d-flex align-items-center btn btn-link border-0 p-0"
                       id="navbarDropdown"
                       role="button"
                       data-bs-toggle="dropdown"
@@ -111,7 +110,7 @@ export default function Header(props) {
                       <span className="d-none d-md-inline">
                         {userEmail.split("@")[0]}
                       </span>
-                    </a>
+                    </button>
                     <ul
                       className="dropdown-menu dropdown-menu-end"
                       aria-labelledby="navbarDropdown"

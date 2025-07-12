@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Header from "parts/Header";
 import Footer from "parts/Footer";
 import { Fade } from "react-awesome-reveal";
@@ -49,13 +49,7 @@ export default function BrowseBy() {
 
   useEffect(() => {
     filterProperties();
-  }, [
-    properties,
-    selectedCategory,
-    selectedLocation,
-    selectedPrice,
-    searchQuery,
-  ]);
+  }, [filterProperties]);
 
   const fetchData = async () => {
     try {
@@ -76,7 +70,7 @@ export default function BrowseBy() {
     }
   };
 
-  const filterProperties = () => {
+  const filterProperties = useCallback(() => {
     if (!properties || properties.length === 0) {
       setFilteredProperties([]);
       return;
@@ -135,7 +129,13 @@ export default function BrowseBy() {
     }
 
     setFilteredProperties(filtered);
-  };
+  }, [
+    properties,
+    selectedCategory,
+    selectedLocation,
+    selectedPrice,
+    searchQuery,
+  ]);
 
   const handleSearch = () => {
     // The filtering is already handled by useEffect

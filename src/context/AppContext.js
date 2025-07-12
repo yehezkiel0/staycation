@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer, useEffect } from "react";
+import React, { createContext, useContext, useReducer, useEffect, useCallback } from "react";
 // import { authAPI } from "../services/api";
 
 // Initial state
@@ -324,6 +324,7 @@ export const AppProvider = ({ children }) => {
         actions.logout();
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const value = {

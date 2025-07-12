@@ -142,7 +142,7 @@ export const useProperty = (propertyId) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const fetchProperty = async (id = propertyId) => {
+  const fetchProperty = useCallback(async (id = propertyId) => {
     if (!id) return;
 
     setLoading(true);
@@ -157,13 +157,13 @@ export const useProperty = (propertyId) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [propertyId]);
 
   useEffect(() => {
     if (propertyId) {
       fetchProperty(propertyId);
     }
-  }, [propertyId]);
+  }, [propertyId, fetchProperty]);
 
   return {
     property,
@@ -185,7 +185,7 @@ export const useReviews = (propertyId) => {
     total: 0,
   });
 
-  const fetchReviews = async (params = {}) => {
+  const fetchReviews = useCallback(async (params = {}) => {
     if (!propertyId) return;
 
     setLoading(true);
@@ -205,13 +205,13 @@ export const useReviews = (propertyId) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [propertyId]);
 
   useEffect(() => {
     if (propertyId) {
       fetchReviews();
     }
-  }, [propertyId]);
+  }, [propertyId, fetchReviews]);
 
   return {
     reviews,
@@ -387,7 +387,7 @@ export const useAuth = () => {
     setUser(null);
   };
 
-  const fetchProfile = async () => {
+  const fetchProfile = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
@@ -408,7 +408,7 @@ export const useAuth = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   // Check if user is logged in on component mount
   useEffect(() => {
@@ -428,7 +428,7 @@ export const useAuth = () => {
         logout();
       }
     }
-  }, []);
+  }, [fetchProfile]);
 
   return {
     user,
