@@ -200,7 +200,7 @@ export default function Footer() {
                   href="mailto:support@staycation.id"
                 >
                   <i className="fas fa-envelope me-2"></i>
-                  support@staycation.id
+                  support@stc.id
                 </Button>
               </li>
               <li className="mb-2">

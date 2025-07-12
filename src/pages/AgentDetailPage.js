@@ -139,7 +139,9 @@ export default function AgentDetailPage() {
                           agent.avatar ||
                           "/images/testimonial-landingpages.jpg"
                         }
-                        alt={`${agent.user?.firstName || agent.firstName || "Agent"} ${agent.user?.lastName || agent.lastName || ""}`}
+                        alt={`${
+                          agent.user?.firstName || agent.firstName || "Agent"
+                        } ${agent.user?.lastName || agent.lastName || ""}`}
                         className="rounded-circle"
                         style={{
                           width: "120px",
@@ -154,10 +156,13 @@ export default function AgentDetailPage() {
 
                     {/* Name and Title */}
                     <h4 className="mb-1">
-                      {agent.user?.firstName || agent.firstName || "Agent"} {agent.user?.lastName || agent.lastName || ""}
+                      {agent.user?.firstName || agent.firstName || "Agent"}{" "}
+                      {agent.user?.lastName || agent.lastName || ""}
                     </h4>
                     <p className="text-muted mb-3">
-                      {agent.specialization || agent.title || "Real Estate Agent"}
+                      {agent.specialization ||
+                        agent.title ||
+                        "Real Estate Agent"}
                     </p>
 
                     {/* Rating */}
@@ -214,7 +219,10 @@ export default function AgentDetailPage() {
                       {agent.location?.city && (
                         <div className="mb-2">
                           <i className="fas fa-map-marker-alt text-primary me-2"></i>
-                          <small>{agent.location.city}, {agent.location.country || agent.location.state}</small>
+                          <small>
+                            {agent.location.city},{" "}
+                            {agent.location.country || agent.location.state}
+                          </small>
                         </div>
                       )}
                     </div>
@@ -332,35 +340,58 @@ export default function AgentDetailPage() {
                                   property.images?.[0]?.url ||
                                   property.images?.[0] ||
                                   property.mainImage ||
-                                  `/images/image-mostpicked-${(index % 5) + 1}.jpg`
+                                  `/images/image-mostpicked-${
+                                    (index % 5) + 1
+                                  }.jpg`
                                 }
                                 className="card-img-top"
                                 alt={property.title || "Property"}
                                 style={{ height: "150px", objectFit: "cover" }}
                                 onError={(e) => {
-                                  e.target.src = `/images/image-mostpicked-${(index % 5) + 1}.jpg`;
+                                  e.target.src = `/images/image-mostpicked-${
+                                    (index % 5) + 1
+                                  }.jpg`;
                                 }}
                               />
                               <div className="card-body">
                                 <h6 className="card-title">
-                                  {property.title || property.name || "Property"}
+                                  {property.title ||
+                                    property.name ||
+                                    "Property"}
                                 </h6>
                                 <p className="card-text text-muted small">
-                                  {property.location?.city || property.city || "Unknown"},{" "}
-                                  {property.location?.country || property.country || "Location"}
+                                  {property.location?.city ||
+                                    property.city ||
+                                    "Unknown"}
+                                  ,{" "}
+                                  {property.location?.country ||
+                                    property.country ||
+                                    "Location"}
                                 </p>
                                 <div className="d-flex justify-content-between align-items-center">
                                   <span className="text-primary fw-bold">
-                                    ${property.price?.amount || property.price || "N/A"}
-                                    {property.price?.per && `/${property.price.per}`}
-                                    {!property.price?.per && property.unit && `/${property.unit}`}
-                                    {!property.price?.per && !property.unit && "/night"}
+                                    $
+                                    {property.price?.amount ||
+                                      property.price ||
+                                      "N/A"}
+                                    {property.price?.per &&
+                                      `/${property.price.per}`}
+                                    {!property.price?.per &&
+                                      property.unit &&
+                                      `/${property.unit}`}
+                                    {!property.price?.per &&
+                                      !property.unit &&
+                                      "/night"}
                                   </span>
                                   <Button
                                     className="btn btn-sm btn-outline-primary"
                                     type="button"
                                     onClick={() =>
-                                      navigate(`/properties/${property._id || property.id}`)
+                                      navigate(
+                                        `/properties/${
+                                          property._id || property.id
+                                        }`
+                                      )
                                     }
                                   >
                                     View
@@ -451,8 +482,7 @@ export default function AgentDetailPage() {
               </Button>
             </div>
           </section>
-        </Fade>
-      </main>
+        </Fade>      </main>
       <Footer />
     </>
   );
