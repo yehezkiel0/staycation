@@ -316,28 +316,39 @@ export default function AgentDetailPage() {
                               <img
                                 src={
                                   property.imageUrls?.[0]?.url ||
-                                  "/images/default-property.jpg"
+                                  property.imageUrls?.[0] ||
+                                  property.images?.[0]?.url ||
+                                  property.images?.[0] ||
+                                  property.mainImage ||
+                                  `/images/image-mostpicked-${(index % 5) + 1}.jpg`
                                 }
                                 className="card-img-top"
-                                alt={property.title}
+                                alt={property.title || "Property"}
                                 style={{ height: "150px", objectFit: "cover" }}
+                                onError={(e) => {
+                                  e.target.src = `/images/image-mostpicked-${(index % 5) + 1}.jpg`;
+                                }}
                               />
                               <div className="card-body">
-                                <h6 className="card-title">{property.title}</h6>
+                                <h6 className="card-title">
+                                  {property.title || property.name || "Property"}
+                                </h6>
                                 <p className="card-text text-muted small">
-                                  {property.location?.city},{" "}
-                                  {property.location?.country}
+                                  {property.location?.city || property.city || "Unknown"},{" "}
+                                  {property.location?.country || property.country || "Location"}
                                 </p>
                                 <div className="d-flex justify-content-between align-items-center">
                                   <span className="text-primary fw-bold">
-                                    ${property.price?.amount || "N/A"}/
-                                    {property.price?.per || "night"}
+                                    ${property.price?.amount || property.price || "N/A"}
+                                    {property.price?.per && `/${property.price.per}`}
+                                    {!property.price?.per && property.unit && `/${property.unit}`}
+                                    {!property.price?.per && !property.unit && "/night"}
                                   </span>
                                   <Button
                                     className="btn btn-sm btn-outline-primary"
                                     type="button"
                                     onClick={() =>
-                                      navigate(`/properties/${property._id}`)
+                                      navigate(`/properties/${property._id || property.id}`)
                                     }
                                   >
                                     View
