@@ -133,25 +133,31 @@ export default function AgentDetailPage() {
                       <img
                         src={
                           agent.profileImage?.url ||
+                          agent.profileImage ||
                           agent.user?.avatar ||
-                          "/images/default-avatar.jpg"
+                          agent.user?.profileImage ||
+                          agent.avatar ||
+                          "/images/testimonial-landingpages.jpg"
                         }
-                        alt={`${agent.user?.firstName} ${agent.user?.lastName}`}
+                        alt={`${agent.user?.firstName || agent.firstName || "Agent"} ${agent.user?.lastName || agent.lastName || ""}`}
                         className="rounded-circle"
                         style={{
                           width: "120px",
                           height: "120px",
                           objectFit: "cover",
                         }}
+                        onError={(e) => {
+                          e.target.src = "/images/testimonial-landingpages.jpg";
+                        }}
                       />
                     </div>
 
                     {/* Name and Title */}
                     <h4 className="mb-1">
-                      {agent.user?.firstName} {agent.user?.lastName}
+                      {agent.user?.firstName || agent.firstName || "Agent"} {agent.user?.lastName || agent.lastName || ""}
                     </h4>
                     <p className="text-muted mb-3">
-                      {agent.specialization || "Real Estate Agent"}
+                      {agent.specialization || agent.title || "Real Estate Agent"}
                     </p>
 
                     {/* Rating */}
@@ -193,16 +199,22 @@ export default function AgentDetailPage() {
                           <small>{agent.contact.phone}</small>
                         </div>
                       )}
-                      {agent.user?.email && (
+                      {(agent.user?.email || agent.email) && (
                         <div className="mb-2">
                           <i className="fas fa-envelope text-primary me-2"></i>
-                          <small>{agent.user.email}</small>
+                          <small>{agent.user?.email || agent.email}</small>
                         </div>
                       )}
                       {agent.contact?.whatsapp && (
                         <div className="mb-2">
                           <i className="fab fa-whatsapp text-success me-2"></i>
                           <small>{agent.contact.whatsapp}</small>
+                        </div>
+                      )}
+                      {agent.location?.city && (
+                        <div className="mb-2">
+                          <i className="fas fa-map-marker-alt text-primary me-2"></i>
+                          <small>{agent.location.city}, {agent.location.country || agent.location.state}</small>
                         </div>
                       )}
                     </div>
