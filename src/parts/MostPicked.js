@@ -3,6 +3,7 @@ import React from "react";
 import { Fade, Slide } from "react-awesome-reveal";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import Star from "elements/Star";
 
 // Import Swiper styles
 import "swiper/css";
@@ -10,6 +11,83 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 export default function MostPicked(props) {
+  const { data, loading, error } = props;
+
+  // Loading state
+  if (loading) {
+    return (
+      <section className="container py-5" ref={props.refMostPicked}>
+        <Fade direction="up" delay={300} triggerOnce>
+          <div className="text-center mb-5">
+            <span className="badge bg-primary px-3 py-2 rounded-pill mb-3">
+              🏆 Most Popular
+            </span>
+            <h2 className="display-5 fw-bold mb-3">Most Picked Properties</h2>
+            <p className="text-muted">
+              Discover the most loved destinations by our travelers
+            </p>
+          </div>
+        </Fade>
+
+        <div className="text-center py-5">
+          <div className="spinner-border text-primary" role="status">
+            <span className="sr-only">Loading...</span>
+          </div>
+          <p className="text-muted mt-3">Loading amazing properties...</p>
+        </div>
+      </section>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <section className="container py-5" ref={props.refMostPicked}>
+        <Fade direction="up" delay={300} triggerOnce>
+          <div className="text-center mb-5">
+            <span className="badge bg-primary px-3 py-2 rounded-pill mb-3">
+              🏆 Most Popular
+            </span>
+            <h2 className="display-5 fw-bold mb-3">Most Picked Properties</h2>
+            <p className="text-muted">
+              Discover the most loved destinations by our travelers
+            </p>
+          </div>
+        </Fade>
+
+        <div className="text-center py-5">
+          <div className="alert alert-warning" role="alert">
+            <h5>Unable to load properties</h5>
+            <p className="mb-0">Please try again later. {error}</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // No data state
+  if (!data || data.length === 0) {
+    return (
+      <section className="container py-5" ref={props.refMostPicked}>
+        <Fade direction="up" delay={300} triggerOnce>
+          <div className="text-center mb-5">
+            <span className="badge bg-primary px-3 py-2 rounded-pill mb-3">
+              🏆 Most Popular
+            </span>
+            <h2 className="display-5 fw-bold mb-3">Most Picked Properties</h2>
+            <p className="text-muted">
+              Discover the most loved destinations by our travelers
+            </p>
+          </div>
+        </Fade>
+
+        <div className="text-center py-5">
+          <p className="text-muted">No properties available at the moment.</p>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="container py-5" ref={props.refMostPicked}>
       <Fade direction="up" delay={300} triggerOnce>
@@ -54,8 +132,8 @@ export default function MostPicked(props) {
           }}
           className="most-picked-swiper"
         >
-          {props.data.map((item, index) => (
-            <SwiperSlide key={`mostpicked-${index}`}>
+          {data.map((item, index) => (
+            <SwiperSlide key={`mostpicked-${item._id || "fallback"}-${index}`}>
               <div className="property-card h-100">
                 <div className="position-relative overflow-hidden rounded-3">
                   <img
@@ -63,14 +141,19 @@ export default function MostPicked(props) {
                     alt={item.name}
                     className="img-fluid w-100 property-image"
                     style={{ height: "250px", objectFit: "cover" }}
+                    onError={(e) => {
+                      e.target.src = `/images/image-mostpicked-${
+                        index + 1
+                      }.jpg`;
+                    }}
                   />
                   <div className="property-overlay"></div>
 
-                  {/* Badge for first item */}
-                  {index === 0 && (
+                  {/* Badge for popular/first item */}
+                  {(item.isPopular || index === 0) && (
                     <div className="position-absolute top-0 start-0 m-3">
                       <span className="badge bg-warning text-dark px-3 py-2 rounded-pill fw-bold">
-                        ⭐ #1 Pick
+                        ⭐ {item.isPopular ? "Popular" : "#1 Pick"}
                       </span>
                     </div>
                   )}
@@ -78,7 +161,7 @@ export default function MostPicked(props) {
                   {/* Price */}
                   <div className="position-absolute bottom-0 end-0 m-3">
                     <span className="badge bg-dark text-white px-3 py-2 rounded-pill">
-                      ${item.price} <small>per night</small>
+                      ${item.price} <small>per {item.unit || "night"}</small>
                     </span>
                   </div>
                 </div>
@@ -90,9 +173,16 @@ export default function MostPicked(props) {
                   </p>
 
                   <div className="d-flex justify-content-between align-items-center">
-                    <div className="property-rating">
-                      <span className="text-warning">{"★".repeat(5)}</span>
-                      <small className="text-muted ms-1">4.8</small>
+                    <div className="property-rating d-flex align-items-center">
+                      <Star
+                        value={item.rating}
+                        width={16}
+                        height={16}
+                        spacing={2}
+                      />
+                      <small className="text-muted ms-2">
+                        {item.rating?.toFixed(1)} ({item.reviewCount || 0})
+                      </small>
                     </div>
                     <Button
                       className="btn btn-primary btn-sm px-3"

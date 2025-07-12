@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "parts/Header";
 import Footer from "parts/Footer";
-import { Fade, Zoom } from "react-awesome-reveal";
+import { Fade, Slide, Zoom, AttentionSeeker } from "react-awesome-reveal";
 import Button from "elements/Button";
 import { Swiper, SwiperSlide } from "swiper/react";
 import {
   Navigation,
   Pagination,
   Autoplay,
+  EffectCards,
   EffectCoverflow,
 } from "swiper/modules";
 import { getStories } from "services/api";
@@ -17,6 +18,7 @@ import { getStories } from "services/api";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import "swiper/css/effect-cards";
 import "swiper/css/effect-coverflow";
 
 export default function Stories() {
@@ -27,19 +29,12 @@ export default function Stories() {
   const [selectedCategory, setSelectedCategory] = useState("all");
 
   useEffect(() => {
-    console.log(
-      "Stories useEffect triggered, selectedCategory:",
-      selectedCategory
-    );
     const fetchStories = async () => {
       try {
         setLoading(true);
-        const params = {};
-        if (selectedCategory !== "all") {
-          params.category = selectedCategory;
-        }
-        console.log("Fetching stories with params:", params);
-        const response = await getStories(params);
+        const response = await getStories({
+          category: selectedCategory !== "all" ? selectedCategory : undefined,
+        });
         const data = response.data || response;
         const storiesData = data.stories || data;
 
@@ -129,6 +124,8 @@ export default function Stories() {
       </>
     );
   }
+
+  const otherStories = stories.filter((story) => !story.featured);
 
   return (
     <>

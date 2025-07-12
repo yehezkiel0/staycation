@@ -1,7 +1,7 @@
 import React from "react";
 import { Fade } from "react-awesome-reveal";
 
-import Breadcrumb from "elements/Breadcrumb";
+// import Breadcrumb from "elements/Breadcrumb";
 
 export default function PageDetailTitle({ data, breadcrumb }) {
   return (
@@ -9,7 +9,25 @@ export default function PageDetailTitle({ data, breadcrumb }) {
       <Fade direction="up">
         <div className="row align-items-center">
           <div className="col">
-            <Breadcrumb data={breadcrumb} />
+            <nav aria-label="breadcrumb">
+              <ol className="breadcrumb">
+                {breadcrumb &&
+                  breadcrumb.map((item, index) => (
+                    <li
+                      key={index}
+                      className={`breadcrumb-item ${
+                        index === breadcrumb.length - 1 ? "active" : ""
+                      }`}
+                    >
+                      {index === breadcrumb.length - 1 ? (
+                        item.pageTitle
+                      ) : (
+                        <a href={item.pageHref}>{item.pageTitle}</a>
+                      )}
+                    </li>
+                  ))}
+              </ol>
+            </nav>
           </div>
           <div className="col-auto text-center">
             <h1 className="h2">{data.name}</h1>

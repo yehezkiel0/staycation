@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "parts/Header";
 import Footer from "parts/Footer";
-import Breadcrumb from "elements/Breadcrumb";
+// import Breadcrumb from "elements/Breadcrumb";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -87,16 +87,19 @@ export default function Register() {
     }, 2000);
   };
 
-  const breadcrumb = [
-    { pageTitle: "Home", pageHref: "/" },
-    { pageTitle: "Register", pageHref: "" },
-  ];
   return (
     <>
       <Header />
       <main>
         <div className="container py-3">
-          <Breadcrumb data={breadcrumb} />
+          <nav aria-label="breadcrumb">
+            <ol className="breadcrumb">
+              <li className="breadcrumb-item">
+                <a href="/">Home</a>
+              </li>
+              <li className="breadcrumb-item active">Register</li>
+            </ol>
+          </nav>
         </div>
 
         <section className="register-section">
