@@ -22,15 +22,32 @@ const apiRequest = async (endpoint, options = {}) => {
 
   try {
     const response = await fetch(url, config);
+    
+    // Handle non-JSON responses
+    const contentType = response.headers.get("content-type");
+    if (!contentType || !contentType.includes("application/json")) {
+      throw new Error(`Server returned non-JSON response: ${response.status}`);
+    }
+    
     const data = await response.json();
 
     if (!response.ok) {
-      throw new Error(data.message || "API request failed");
+      throw new Error(data.message || `HTTP error! status: ${response.status}`);
     }
 
     return data;
   } catch (error) {
-    console.error("API Request Error:", error);
+    console.error("API Request Error:", {
+      url,
+      error: error.message,
+      endpoint
+    });
+    
+    // Provide more descriptive error messages
+    if (error.name === 'TypeError' && error.message.includes('fetch')) {
+      throw new Error('Unable to connect to server. Please check if the backend is running.');
+    }
+    
     throw error;
   }
 };
