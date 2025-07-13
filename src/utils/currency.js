@@ -21,14 +21,14 @@ export const convertUSDToIDR = (usdAmount) => {
  */
 export const formatIDRCurrency = (amount, showCurrency = true) => {
   if (!amount || isNaN(amount)) return showCurrency ? "Rp 0" : "0";
-  
+
   const formatter = new Intl.NumberFormat("id-ID", {
     style: showCurrency ? "currency" : "decimal",
     currency: "IDR",
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   });
-  
+
   return formatter.format(amount);
 };
 
@@ -53,14 +53,14 @@ export const convertAndFormatPrice = (usdAmount, period = "") => {
 export const formatPrice = (price, unit = "") => {
   let amount = 0;
   let period = unit;
-  
+
   if (typeof price === "object" && price !== null) {
     amount = price.amount || price.value || 0;
     period = price.per || price.unit || unit;
   } else {
     amount = price || 0;
   }
-  
+
   const periodText = period ? `/${period}` : "";
   return convertAndFormatPrice(amount, periodText);
 };

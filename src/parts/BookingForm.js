@@ -5,7 +5,11 @@ import propTypes from "prop-types";
 import { Fade } from "react-awesome-reveal";
 import Button from "elements/Button";
 import { InputNumber, InputDate } from "elements/Form";
-import { formatPrice, convertUSDToIDR, formatIDRCurrency } from "utils/currency";
+import {
+  formatPrice,
+  convertUSDToIDR,
+  formatIDRCurrency,
+} from "utils/currency";
 
 export default class BookingForm extends Component {
   constructor(props) {
@@ -115,7 +119,9 @@ export default class BookingForm extends Component {
           >
             You will pay{" "}
             <span className="text-gray-900">
-              {formatIDRCurrency(convertUSDToIDR(itemDetails.price * data.duration))}
+              {formatIDRCurrency(
+                convertUSDToIDR(itemDetails.price * data.duration)
+              )}
             </span>{" "}
             per{" "}
             <span className="text-gray-900">

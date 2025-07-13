@@ -138,13 +138,21 @@ export default function MostPicked(props) {
               <div className="property-card h-100">
                 <div className="position-relative overflow-hidden rounded-3">
                   <img
-                    src={item.imageUrl}
-                    alt={item.name}
+                    src={
+                      item.imageUrls?.[0]?.url ||
+                      item.imageUrls?.[0] ||
+                      item.images?.[0]?.url ||
+                      item.images?.[0] ||
+                      item.imageUrl ||
+                      item.mainImage ||
+                      `/images/image-mostpicked-${(index % 5) + 1}.jpg`
+                    }
+                    alt={item.name || item.title || "Property"}
                     className="img-fluid w-100 property-image"
                     style={{ height: "250px", objectFit: "cover" }}
                     onError={(e) => {
                       e.target.src = `/images/image-mostpicked-${
-                        index + 1
+                        (index % 5) + 1
                       }.jpg`;
                     }}
                   />
@@ -162,33 +170,40 @@ export default function MostPicked(props) {
                   {/* Price */}
                   <div className="position-absolute bottom-0 end-0 m-3">
                     <span className="badge bg-dark text-white px-3 py-2 rounded-pill">
-                      {formatPrice(item.price, item.unit || "night")}
+                      {formatPrice(
+                        item.price?.amount || item.price,
+                        item.price?.per || item.unit || "night"
+                      )}
                     </span>
                   </div>
                 </div>
 
                 <div className="p-3">
-                  <h5 className="fw-bold mb-2">{item.name}</h5>
+                  <h5 className="fw-bold mb-2">
+                    {item.name || item.title || "Property"}
+                  </h5>
                   <p className="text-muted mb-2">
-                    {item.city}, {item.country}
+                    {item.location?.city || item.city || "Unknown"},{" "}
+                    {item.location?.country || item.country || "Location"}
                   </p>
 
                   <div className="d-flex justify-content-between align-items-center">
                     <div className="property-rating d-flex align-items-center">
                       <Star
-                        value={item.rating}
+                        value={item.rating || item.ratings?.average || 0}
                         width={16}
                         height={16}
                         spacing={2}
                       />
                       <small className="text-muted ms-2">
-                        {item.rating?.toFixed(1)} ({item.reviewCount || 0})
+                        {(item.rating || item.ratings?.average || 0).toFixed(1)}{" "}
+                        ({item.reviewCount || item.ratings?.count || 0})
                       </small>
                     </div>
                     <Button
                       className="btn btn-primary btn-sm px-3"
                       type="link"
-                      href={`/properties/${item._id}`}
+                      href={`/properties/${item._id || item.id}`}
                     >
                       View Details
                     </Button>

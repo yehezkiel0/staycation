@@ -142,22 +142,25 @@ export const useProperty = (propertyId) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const fetchProperty = useCallback(async (id = propertyId) => {
-    if (!id) return;
+  const fetchProperty = useCallback(
+    async (id = propertyId) => {
+      if (!id) return;
 
-    setLoading(true);
-    setError(null);
-    try {
-      const data = await propertiesAPI.getById(id);
-      setProperty(data.property || data);
-      return data;
-    } catch (err) {
-      setError(err.message);
-      throw err;
-    } finally {
-      setLoading(false);
-    }
-  }, [propertyId]);
+      setLoading(true);
+      setError(null);
+      try {
+        const data = await propertiesAPI.getById(id);
+        setProperty(data.property || data);
+        return data;
+      } catch (err) {
+        setError(err.message);
+        throw err;
+      } finally {
+        setLoading(false);
+      }
+    },
+    [propertyId]
+  );
 
   useEffect(() => {
     if (propertyId) {
@@ -185,27 +188,30 @@ export const useReviews = (propertyId) => {
     total: 0,
   });
 
-  const fetchReviews = useCallback(async (params = {}) => {
-    if (!propertyId) return;
+  const fetchReviews = useCallback(
+    async (params = {}) => {
+      if (!propertyId) return;
 
-    setLoading(true);
-    setError(null);
-    try {
-      const data = await reviewsAPI.getByProperty(propertyId, params);
-      setReviews(data.reviews || []);
-      setPagination({
-        currentPage: data.currentPage || 1,
-        totalPages: data.totalPages || 1,
-        total: data.total || 0,
-      });
-      return data;
-    } catch (err) {
-      setError(err.message);
-      throw err;
-    } finally {
-      setLoading(false);
-    }
-  }, [propertyId]);
+      setLoading(true);
+      setError(null);
+      try {
+        const data = await reviewsAPI.getByProperty(propertyId, params);
+        setReviews(data.reviews || []);
+        setPagination({
+          currentPage: data.currentPage || 1,
+          totalPages: data.totalPages || 1,
+          total: data.total || 0,
+        });
+        return data;
+      } catch (err) {
+        setError(err.message);
+        throw err;
+      } finally {
+        setLoading(false);
+      }
+    },
+    [propertyId]
+  );
 
   useEffect(() => {
     if (propertyId) {

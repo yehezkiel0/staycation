@@ -363,7 +363,9 @@ export default function AgentDetailPage() {
                                   <span className="text-primary fw-bold">
                                     {formatPrice(
                                       property.price?.amount || property.price,
-                                      property.price?.per || property.unit || "night"
+                                      property.price?.per ||
+                                        property.unit ||
+                                        "night"
                                     )}
                                   </span>
                                   <Button
