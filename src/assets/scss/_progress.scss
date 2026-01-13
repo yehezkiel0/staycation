@@ -1,9 +1,14 @@
+@use "variables" as *;
+@use "mixins" as *;
+@use "functions" as *;
 // Disable animation if transitions are disabled
 
 // scss-docs-start progress-keyframes
 @if $enable-transitions {
   @keyframes progress-bar-stripes {
-    0% { background-position-x: $progress-height; }
+    0% {
+      background-position-x: $progress-height;
+    }
   }
 }
 // scss-docs-end progress-keyframes
@@ -44,7 +49,8 @@
 
 .progress-bar-striped {
   @include gradient-striped();
-  background-size: var(--#{$prefix}progress-height) var(--#{$prefix}progress-height);
+  background-size: var(--#{$prefix}progress-height)
+    var(--#{$prefix}progress-height);
 }
 
 .progress-stacked > .progress {

@@ -1,7 +1,8 @@
 //
 // Base styles
 //
-
+@use "variables" as *;
+@use "mixins" as *;
 .card {
   // scss-docs-start card-css-vars
   --#{$prefix}card-spacer-y: #{$card-spacer-y};

@@ -1,3 +1,6 @@
+@use "../variables" as *;
+@use "../mixins" as *;
+@use "../functions" as *;
 .form-floating {
   position: relative;
 
@@ -56,12 +59,15 @@
   > .form-control-plaintext,
   > .form-select {
     ~ label {
-      color: rgba(var(--#{$prefix}body-color-rgb), #{$form-floating-label-opacity});
+      color: rgba(
+        var(--#{$prefix}body-color-rgb),
+        #{$form-floating-label-opacity}
+      );
       transform: $form-floating-label-transform;
 
       &::after {
         position: absolute;
-        inset: $form-floating-padding-y ($form-floating-padding-x * .5);
+        inset: $form-floating-padding-y ($form-floating-padding-x * 0.5);
         z-index: -1;
         height: $form-floating-label-height;
         content: "";
@@ -73,7 +79,10 @@
   // Duplicated because `:-webkit-autofill` invalidates other selectors when grouped
   > .form-control:-webkit-autofill {
     ~ label {
-      color: rgba(var(--#{$prefix}body-color-rgb), #{$form-floating-label-opacity});
+      color: rgba(
+        var(--#{$prefix}body-color-rgb),
+        #{$form-floating-label-opacity}
+      );
       transform: $form-floating-label-transform;
     }
   }
@@ -85,7 +94,8 @@
   }
 
   > :disabled ~ label,
-  > .form-control:disabled ~ label { // Required for `.form-control`s because of specificity
+  > .form-control:disabled ~ label {
+    // Required for `.form-control`s because of specificity
     color: $form-floating-label-disabled-color;
 
     &::after {

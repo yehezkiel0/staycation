@@ -1,3 +1,6 @@
+@use "../variables" as *;
+@use "../mixins" as *;
+@use "../functions" as *;
 .clearfix {
   @include clearfix();
 }

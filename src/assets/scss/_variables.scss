@@ -1,3 +1,6 @@
+@use "functions" as *;
+@forward "colorVariables";
+@use "colorVariables" as *;
 // Variables
 //
 // Variables should follow the `$component-state-property-size` formula for
@@ -336,13 +339,8 @@ $dark-border-subtle: $gray-500 !default;
 // scss-docs-end theme-border-subtle-variables
 
 // Characters which are escaped by the escape-svg function
-$escaped-characters: (
-  ("<", "%3c"),
-  (">", "%3e"),
-  ("#", "%23"),
-  ("(", "%28"),
-  (")", "%29")
-) !default;
+// Characters which are escaped by the escape-svg function
+// Moved to _functions.scss
 
 // Options
 //
@@ -476,8 +474,8 @@ $grid-breakpoints: (
 ) !default;
 // scss-docs-end grid-breakpoints
 
-@include _assert-ascending($grid-breakpoints, "$grid-breakpoints");
-@include _assert-starts-at-zero($grid-breakpoints, "$grid-breakpoints");
+@include assert-ascending($grid-breakpoints, "$grid-breakpoints");
+@include assert-starts-at-zero($grid-breakpoints, "$grid-breakpoints");
 
 // Grid containers
 //
@@ -493,7 +491,7 @@ $container-max-widths: (
 ) !default;
 // scss-docs-end container-max-widths
 
-@include _assert-ascending($container-max-widths, "$container-max-widths");
+@include assert-ascending($container-max-widths, "$container-max-widths");
 
 // Grid columns
 //
@@ -1784,3 +1782,21 @@ $kbd-bg: var(--#{$prefix}body-color) !default;
 $nested-kbd-font-weight: null !default; // Deprecated in v5.2.0, removing in v6
 
 $pre-color: null !default;
+
+// scss-docs-start form-select-variables
+$form-select-indicator-color: $gray-800 !default;
+$form-select-indicator: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='#{$form-select-indicator-color}' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/></svg>") !default;
+
+$form-select-indicator-color-dark: $gray-300 !default;
+$form-select-indicator-dark: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='#{$form-select-indicator-color-dark}' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/></svg>") !default;
+// scss-docs-end form-select-variables
+
+// scss-docs-start form-check-variables
+$form-check-input-checked-color: $component-active-color !default;
+$form-check-input-checked-bg-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path fill='none' stroke='#{$form-check-input-checked-color}' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/></svg>") !default;
+$form-check-radio-checked-bg-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='2' fill='#{$form-check-input-checked-color}'/></svg>") !default;
+$form-check-input-indeterminate-bg-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path fill='none' stroke='#{$form-check-input-checked-color}' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10h8'/></svg>") !default;
+
+$form-switch-color: rgba(255, 255, 255, 0.25) !default;
+$form-switch-bg-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='#{$form-switch-color}'/></svg>") !default;
+// scss-docs-end form-check-variables

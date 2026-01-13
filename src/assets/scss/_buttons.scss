@@ -1,7 +1,9 @@
 //
 // Base styles
 //
-
+@use "functions" as *;
+@use "variables" as *;
+@use "mixins" as *;
 .btn {
   // scss-docs-start btn-css-vars
   --#{$prefix}btn-padding-x: #{$btn-padding-x};

@@ -1,5 +1,7 @@
 // stylelint-disable declaration-no-important, selector-no-qualifying-type, property-no-vendor-prefix
 
+@use "variables" as *;
+@use "mixins" as *;
 
 // Reboot
 //
@@ -7,7 +9,6 @@
 // styles targeting irrelevant browsers while applying new styles.
 //
 // Normalize is licensed MIT. https://github.com/necolas/normalize.css
-
 
 // Document
 //
@@ -18,7 +19,6 @@
 *::after {
   box-sizing: border-box;
 }
-
 
 // Root
 //
@@ -36,7 +36,6 @@
     }
   }
 }
-
 
 // Body
 //
@@ -60,7 +59,6 @@ body {
 }
 // scss-docs-end reboot-body-rules
 
-
 // Content grouping
 //
 // 1. Reset Firefox's gray color
@@ -72,7 +70,6 @@ hr {
   border-top: $hr-border-width solid $hr-border-color;
   opacity: $hr-opacity;
 }
-
 
 // Typography
 //
@@ -120,7 +117,6 @@ h6 {
   @include font-size($h6-font-size);
 }
 
-
 // Reset margins on paragraphs
 //
 // Similarly, the top margin on `<p>`s get reset. However, we also reset the
@@ -130,7 +126,6 @@ p {
   margin-top: 0;
   margin-bottom: $paragraph-margin-bottom;
 }
-
 
 // Abbreviations
 //
@@ -144,7 +139,6 @@ abbr[title] {
   text-decoration-skip-ink: none; // 3
 }
 
-
 // Address
 
 address {
@@ -152,7 +146,6 @@ address {
   font-style: normal;
   line-height: inherit;
 }
-
 
 // Lists
 
@@ -182,17 +175,15 @@ dt {
 // 1. Undo browser default
 
 dd {
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
   margin-left: 0; // 1
 }
-
 
 // Blockquote
 
 blockquote {
   margin: 0 0 1rem;
 }
-
 
 // Strong
 //
@@ -203,7 +194,6 @@ strong {
   font-weight: $font-weight-bolder;
 }
 
-
 // Small
 //
 // Add the correct font size in all browsers
@@ -212,7 +202,6 @@ small {
   @include font-size($small-font-size);
 }
 
-
 // Mark
 
 mark {
@@ -220,7 +209,6 @@ mark {
   color: var(--#{$prefix}highlight-color);
   background-color: var(--#{$prefix}highlight-bg);
 }
-
 
 // Sub and Sup
 //
@@ -235,14 +223,20 @@ sup {
   vertical-align: baseline;
 }
 
-sub { bottom: -.25em; }
-sup { top: -.5em; }
-
+sub {
+  bottom: -0.25em;
+}
+sup {
+  top: -0.5em;
+}
 
 // Links
 
 a {
-  color: rgba(var(--#{$prefix}link-color-rgb), var(--#{$prefix}link-opacity, 1));
+  color: rgba(
+    var(--#{$prefix}link-color-rgb),
+    var(--#{$prefix}link-opacity, 1)
+  );
   text-decoration: $link-decoration;
 
   &:hover {
@@ -263,7 +257,6 @@ a:not([href]):not([class]) {
     text-decoration: none;
   }
 }
-
 
 // Code
 
@@ -320,7 +313,6 @@ kbd {
   }
 }
 
-
 // Figures
 //
 // Apply a consistent margin strategy (matches our type styles).
@@ -329,14 +321,12 @@ figure {
   margin: 0 0 1rem;
 }
 
-
 // Images and content
 
 img,
 svg {
   vertical-align: middle;
 }
-
 
 // Tables
 //
@@ -374,7 +364,6 @@ th {
   border-style: solid;
   border-width: 0;
 }
-
 
 // Forms
 //
@@ -440,7 +429,9 @@ select {
 // Remove the dropdown arrow only from text type inputs built with datalists in Chrome.
 // See https://stackoverflow.com/a/54997118
 
-[list]:not([type="date"]):not([type="datetime-local"]):not([type="month"]):not([type="week"]):not([type="time"])::-webkit-calendar-picker-indicator {
+[list]:not([type="date"]):not([type="datetime-local"]):not([type="month"]):not(
+    [type="week"]
+  ):not([type="time"])::-webkit-calendar-picker-indicator {
   display: none !important;
 }
 
@@ -562,7 +553,6 @@ legend {
   padding: 0;
 }
 
-
 // 1. Inherit font family and line height for file input buttons
 // 2. Correct the inability to style clickable types in iOS and Safari.
 
@@ -592,7 +582,6 @@ summary {
   cursor: pointer;
 }
 
-
 // Progress
 //
 // Add the correct vertical alignment in Chrome, Firefox, and Opera.
@@ -600,7 +589,6 @@ summary {
 progress {
   vertical-align: baseline;
 }
-
 
 // Hidden attribute
 //

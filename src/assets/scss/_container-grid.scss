@@ -1,3 +1,6 @@
+@use "variables" as *;
+@use "mixins" as *;
+
 .container-grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
