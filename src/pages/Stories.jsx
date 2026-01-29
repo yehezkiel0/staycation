@@ -11,7 +11,7 @@ import {
   Autoplay,
   EffectCoverflow,
 } from "swiper/modules";
-import { getStories } from "services/api";
+import { getStories, IMAGE_BASE_URL } from "services/api";
 
 // Import Swiper styles
 import "swiper/css";
@@ -27,10 +27,6 @@ export default function Stories() {
   const [selectedCategory, setSelectedCategory] = useState("all");
 
   useEffect(() => {
-    console.log(
-      "Stories useEffect triggered, selectedCategory:",
-      selectedCategory,
-    );
     const fetchStories = async () => {
       try {
         setLoading(true);
@@ -38,10 +34,15 @@ export default function Stories() {
         if (selectedCategory !== "all") {
           params.category = selectedCategory;
         }
-        console.log("Fetching stories with params:", params);
         const response = await getStories(params);
         const data = response.data || response;
         const storiesData = data.stories || data;
+
+        const getImageUrl = (url) => {
+          if (!url) return "";
+          if (url.startsWith("http") || url.startsWith("blob:")) return url;
+          return `${IMAGE_BASE_URL}/${url.replace(/^\/+/, "")}`;
+        };
 
         // Transform stories data with safe object handling
         const transformedStories = (storiesData || []).map((story) => ({
@@ -50,9 +51,12 @@ export default function Stories() {
           title: story.title || "Untitled Story",
           excerpt: story.excerpt || "No excerpt available",
           featuredImage:
-            story.featuredImage?.url || "/images/img-featured-1.jpg",
+            getImageUrl(story.featuredImage?.url) ||
+            "/images/img-featured-1.jpg",
           author: story.author?.name || "Unknown Author",
-          avatar: story.author?.avatar || "https://via.placeholder.com/150",
+          avatar:
+            getImageUrl(story.author?.avatar) ||
+            "https://via.placeholder.com/150",
           date: story.formattedDate || "Unknown Date",
           readTime: story.readTimeDisplay || `${story.readTime || 5} min read`,
           tags: Array.isArray(story.tags) ? story.tags : [],

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { bookingsAPI } from "services/api";
+import api, { bookingsAPI, IMAGE_BASE_URL } from "services/api";
 import { toast } from "react-toastify";
 import Header from "parts/Header";
 import Footer from "parts/Footer";
@@ -7,10 +7,21 @@ import { Fade } from "react-awesome-reveal";
 import { Link } from "react-router-dom";
 import formatDate from "utils/formatDate";
 
+import { getStatusBadge, filterBookings } from "services/logic/bookingLogic";
+
 export default function MyBookings() {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("all"); // all, upcoming, past
+
+  // Review Modal State
+  const [showReviewModal, setShowReviewModal] = useState(false);
+  const [selectedBooking, setSelectedBooking] = useState(null);
+  const [rating, setRating] = useState(5);
+  const [comment, setComment] = useState("");
+  const [title, setTitle] = useState("");
+  const [tripType, setTripType] = useState("leisure");
+  const [reviewLoading, setReviewLoading] = useState(false);
 
   useEffect(() => {
     fetchBookings();
@@ -29,36 +40,47 @@ export default function MyBookings() {
     }
   };
 
-  const getStatusBadge = (status) => {
-    const statusMap = {
-      pending: "warning",
-      confirmed: "info",
-      completed: "success",
-      cancelled: "danger",
-    };
-    return statusMap[status] || "secondary";
+  const openReviewModal = (booking) => {
+    setSelectedBooking(booking);
+    setRating(5);
+    setComment("");
+    setTitle("");
+    setTripType("leisure");
+    setShowReviewModal(true);
   };
 
-  const filteredBookings = bookings.filter((booking) => {
-    if (filter === "all") return true;
-
-    const bookingDate = new Date(booking.startDate);
-    const today = new Date();
-
-    if (filter === "upcoming") {
-      return bookingDate >= today && booking.status !== "cancelled";
+  const handleSubmitReview = async () => {
+    if (!title || title.length < 3) {
+      toast.error("Please add a title (min 3 characters)");
+      return;
+    }
+    if (!comment || comment.length < 10) {
+      toast.error("Please add a comment (min 10 characters)");
+      return;
     }
 
-    if (filter === "past") {
-      return (
-        bookingDate < today ||
-        booking.status === "completed" ||
-        booking.status === "cancelled"
-      );
+    setReviewLoading(true);
+    const reviewPayload = {
+      property: selectedBooking.property._id,
+      rating,
+      comment,
+      title,
+      tripType,
+    };
+    try {
+      await api.reviews.create(reviewPayload);
+      toast.success("Review submitted successfully!");
+      setShowReviewModal(false);
+      fetchBookings(); // Refresh to update review status
+    } catch (error) {
+      console.error(error);
+      toast.error(error.message || "Failed to submit review");
+    } finally {
+      setReviewLoading(false);
     }
+  };
 
-    return true;
-  });
+  const filteredBookings = filterBookings(bookings, filter);
 
   if (loading) {
     return (
@@ -152,8 +174,13 @@ export default function MyBookings() {
                           <div className="col-md-3">
                             <img
                               src={
-                                booking.property?.images?.[0] ||
-                                "https://via.placeholder.com/300x200"
+                                booking.property?.images?.[0]?.url
+                                  ? booking.property.images[0].url.startsWith(
+                                      "http",
+                                    )
+                                    ? booking.property.images[0].url
+                                    : `${IMAGE_BASE_URL}/${booking.property.images[0].url}`
+                                  : "https://via.placeholder.com/300x200"
                               }
                               alt={booking.property?.name}
                               className="img-fluid rounded"
@@ -168,11 +195,12 @@ export default function MyBookings() {
                           {/* Booking Details */}
                           <div className="col-md-6">
                             <h5 className="mb-2 fw-bold">
-                              {booking.property?.name || "Property Name"}
+                              {booking.property?.title || "Property Name"}
                             </h5>
                             <p className="text-muted mb-2">
                               <i className="fas fa-map-marker-alt me-2"></i>
-                              {booking.property?.location || "Location"}
+                              {booking.property?.location?.city || "City"},{" "}
+                              {booking.property?.location?.country || "Country"}
                             </p>
                             <div className="mb-2">
                               <span
@@ -186,14 +214,14 @@ export default function MyBookings() {
                                 <i className="fas fa-calendar text-primary me-2"></i>
                                 <span>
                                   <strong>Check-in:</strong>{" "}
-                                  {formatDate(booking.startDate)}
+                                  {formatDate(booking.checkIn)}
                                 </span>
                               </div>
                               <div className="d-flex align-items-center mb-2">
                                 <i className="fas fa-calendar text-primary me-2"></i>
                                 <span>
                                   <strong>Check-out:</strong>{" "}
-                                  {formatDate(booking.endDate)}
+                                  {formatDate(booking.checkOut)}
                                 </span>
                               </div>
                               <div className="d-flex align-items-center">
@@ -210,7 +238,7 @@ export default function MyBookings() {
                           <div className="col-md-3 text-md-end">
                             <div className="mb-3">
                               <h4 className="text-primary fw-bold mb-0">
-                                ${booking.total?.toLocaleString()}
+                                ${booking.pricing?.totalPrice?.toLocaleString()}
                               </h4>
                               <small className="text-muted">
                                 Total Payment
@@ -230,6 +258,26 @@ export default function MyBookings() {
                                   Cancel Booking
                                 </button>
                               )}
+                              {booking.status === "completed" &&
+                                !booking.review && (
+                                  <button
+                                    className="btn btn-primary btn-sm"
+                                    onClick={() => openReviewModal(booking)}
+                                  >
+                                    <i className="fas fa-star me-2"></i>
+                                    Write a Review
+                                  </button>
+                                )}
+                              {booking.status === "completed" &&
+                                booking.review && (
+                                  <button
+                                    className="btn btn-success btn-sm"
+                                    disabled
+                                  >
+                                    <i className="fas fa-check me-2"></i>
+                                    Reviewed
+                                  </button>
+                                )}
                             </div>
                             <small className="text-muted d-block mt-2">
                               Booking ID: #{booking._id?.slice(-8)}
@@ -246,6 +294,100 @@ export default function MyBookings() {
         </div>
       </section>
       <Footer />
+
+      {/* Review Modal */}
+      {showReviewModal && (
+        <div
+          className="modal fade show d-block"
+          tabIndex="-1"
+          role="dialog"
+          style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
+        >
+          <div className="modal-dialog modal-dialog-centered" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title fw-bold">Write a Review</h5>
+                <button
+                  type="button"
+                  className="btn-close"
+                  onClick={() => setShowReviewModal(false)}
+                ></button>
+              </div>
+              <div className="modal-body">
+                <div className="mb-3 text-center">
+                  <h6 className="mb-3">
+                    Rate your stay at {selectedBooking?.property?.name}
+                  </h6>
+                  <div className="d-flex justify-content-center gap-2">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <i
+                        key={star}
+                        className={`fas fa-star fa-2x cursor-pointer ${
+                          star <= rating ? "text-warning" : "text-secondary"
+                        }`}
+                        style={{ cursor: "pointer" }}
+                        onClick={() => setRating(star)}
+                      ></i>
+                    ))}
+                  </div>
+                </div>
+                <div className="mb-3">
+                  <label className="form-label">Title</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Review Title (e.g. Amazing Stay!)"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                  />
+                </div>
+                <div className="mb-3">
+                  <label className="form-label">Trip Type</label>
+                  <select
+                    className="form-select"
+                    value={tripType}
+                    onChange={(e) => setTripType(e.target.value)}
+                  >
+                    <option value="leisure">Leisure</option>
+                    <option value="business">Business</option>
+                    <option value="family">Family</option>
+                    <option value="couple">Couple</option>
+                    <option value="solo">Solo</option>
+                    <option value="friends">Friends</option>
+                  </select>
+                </div>
+                <div className="mb-3">
+                  <label className="form-label">Your Experience</label>
+                  <textarea
+                    className="form-control"
+                    rows="4"
+                    placeholder="Tell us about your stay (min 10 characters)..."
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                  ></textarea>
+                </div>
+              </div>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={() => setShowReviewModal(false)}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={handleSubmitReview}
+                  disabled={reviewLoading}
+                >
+                  {reviewLoading ? "Submitting..." : "Submit Review"}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       <style>{`
         .booking-card {

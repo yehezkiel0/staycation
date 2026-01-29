@@ -120,7 +120,7 @@ export default function BookingDetailModal({
                     }}
                   />
                   <div>
-                    <div className="fw-bold">{booking.property?.name}</div>
+                    <div className="fw-bold">{booking.property?.title}</div>
                     <div className="small text-muted">
                       {booking.property?.city}, {booking.property?.country}
                     </div>

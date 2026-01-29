@@ -2,7 +2,7 @@ import React from "react";
 import Button from "elements/Button";
 import BrandIcon from "parts/IconText";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useAuth } from "hooks/useAPI";
+import { useAuth } from "context/AuthContext";
 
 export default function Header(props) {
   const location = useLocation();

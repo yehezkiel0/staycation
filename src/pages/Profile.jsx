@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useAuth } from "hooks/useAPI";
-import { authAPI } from "services/api";
-import { toast } from "react-toastify";
 import Header from "parts/Header";
 import Footer from "parts/Footer";
+import { useAuth } from "context/AuthContext";
+import Button from "elements/Button";
+import { toast } from "react-toastify";
+import { authAPI } from "services/api";
 import { Fade } from "react-awesome-reveal";
 
 export default function Profile() {

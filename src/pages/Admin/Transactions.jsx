@@ -137,7 +137,7 @@ export default function Transactions() {
         ? `${booking.user.firstName} ${booking.user.lastName}`
         : "";
 
-    const propertyName = booking.property?.name || "";
+    const propertyName = booking.property?.title || "";
     const bookingId = booking.bookingId || booking._id || "";
 
     const matchesSearch =
@@ -290,7 +290,7 @@ export default function Transactions() {
                                   ? `${process.env.REACT_APP_API_URL.replace("/api", "")}/${booking.property.imageUrls[0].url}`
                                   : "https://placehold.co/40x40"
                               }
-                              alt={booking.property?.name || "Property"}
+                              alt={booking.property?.title || "Property"}
                               className="rounded me-2 border"
                               style={{
                                 width: "40px",
@@ -302,7 +302,7 @@ export default function Transactions() {
                               }}
                             />
                             <div className="fw-semibold">
-                              {booking.property?.name || "Unknown Property"}
+                              {booking.property?.title || "Unknown Property"}
                             </div>
                           </div>
                         </td>

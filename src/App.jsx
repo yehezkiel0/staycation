@@ -3,7 +3,7 @@ import "./assets/scss/style.scss";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
-import { AuthProvider } from "hooks/useAPI";
+import { AuthProvider } from "context/AuthContext";
 import PropertyDetailPage from "pages/PropertyDetailPage";
 import StoryDetailPage from "pages/StoryDetailPage";
 import AgentDetailPage from "pages/AgentDetailPage";
@@ -14,6 +14,7 @@ import Agents from "pages/Agents";
 import Login from "pages/Login";
 import Register from "pages/Register";
 import Profile from "pages/Profile";
+import WriteStory from "pages/WriteStory";
 import MyBookings from "pages/MyBookings";
 import APITestPage from "pages/APITestPage";
 import NotFound from "pages/NotFound";
@@ -65,6 +66,7 @@ function App() {
             <Route element={<ProtectedRoute />}>
               <Route path="/profile" element={<Profile />} />
               <Route path="/my-bookings" element={<MyBookings />} />
+              <Route path="/write-story" element={<WriteStory />} />
             </Route>
 
             {/* Admin Routes */}

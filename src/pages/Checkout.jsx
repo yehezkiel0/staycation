@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import { useAuth } from "hooks/useAPI";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "context/AuthContext";
 import { Fade } from "react-awesome-reveal";
 import Header from "../parts/Header";
 import Button from "elements/Button";
@@ -16,7 +16,13 @@ import Payment from "parts/Checkout/Payment";
 import Completed from "parts/Checkout/Completed";
 import { bookingsAPI } from "services/api";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import {
+  loadCheckoutData,
+  initializeFormData,
+  uploadProofPayment,
+  prepareBookingPayload,
+} from "services/logic/checkoutLogic";
+
 const Checkout = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -25,9 +31,9 @@ const Checkout = () => {
   const [ItemDetails, setItemDetails] = useState(null);
 
   useEffect(() => {
-    const data = localStorage.getItem("checkout");
+    const data = loadCheckoutData();
     if (data) {
-      setItemDetails(JSON.parse(data));
+      setItemDetails(data);
     }
   }, []);
 
@@ -58,6 +64,13 @@ const Checkout = () => {
     if (user) {
       setData((prev) => ({
         ...prev,
+        ...initializeFormData(user),
+        // Keep existing values if user didn't have them in profile but typed them?
+        // Actually initializeFormData extracts from user.
+        // User might have typed something before login loaded?
+        // The original logic was:
+        // firstName: user.firstName || user.name?.split(" ")[0] || prev.firstName,
+        // So we should respect that.
         firstName: user.firstName || user.name?.split(" ")[0] || prev.firstName,
         lastName: user.lastName || user.name?.split(" ")[1] || prev.lastName,
         email: user.email || prev.email,
@@ -92,45 +105,11 @@ const Checkout = () => {
   };
 
   const _SubmitBooking = async (nextStep) => {
-    const {
-      firstName,
-      lastName,
-      email,
-      phone,
-      proofPayment,
-      bankName,
-      bankHolder,
-    } = data;
-
-    let proofPaymentUrl = proofPayment;
-
     try {
-      if (proofPayment && typeof proofPayment === "object") {
-        const uploadResponse = await import("services/api").then((module) =>
-          module.uploadsAPI.uploadImage(proofPayment),
-        );
-        proofPaymentUrl = uploadResponse.url;
-      }
+      const proofPaymentUrl = await uploadProofPayment(data.proofPayment);
+      const payload = prepareBookingPayload(ItemDetails, data, proofPaymentUrl);
 
-      const payload = {
-        property: ItemDetails._id,
-        checkIn: ItemDetails.date?.startDate || ItemDetails.checkInDate,
-        checkOut: ItemDetails.date?.endDate || ItemDetails.checkOutDate,
-        guests: {
-          adults: ItemDetails.guests || 1,
-          children: 0,
-        },
-        firstName,
-        lastName,
-        email,
-        phone,
-        proofPayment: proofPaymentUrl,
-        bankName,
-        bankHolder,
-        specialRequests: data.specialRequests || "",
-      };
-
-      const result = await bookingsAPI.create(payload);
+      await bookingsAPI.create(payload);
       toast.success("Booking created successfully!");
       nextStep();
       localStorage.removeItem("checkout");

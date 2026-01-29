@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import Button from "elements/Button";
-import { useAuth } from "hooks/useAPI";
+import { useAuth } from "context/AuthContext";
 
 export default function Sidebar() {
   const location = useLocation();

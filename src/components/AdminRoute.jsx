@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { useAuth } from "hooks/useAPI";
+import { useAuth } from "context/AuthContext";
 
 export default function AdminRoute() {
   const { isAuthenticated, user, loading } = useAuth();

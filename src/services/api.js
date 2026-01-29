@@ -1,6 +1,7 @@
-// API Base Configuration
 const API_BASE_URL =
   process.env.REACT_APP_API_URL || "http://localhost:5000/api";
+
+export const IMAGE_BASE_URL = "http://localhost:5000";
 
 // API Helper function
 const apiRequest = async (endpoint, options = {}) => {
@@ -230,6 +231,12 @@ export const agentsAPI = {
 
 // Stories API
 export const storiesAPI = {
+  create: (storyData) =>
+    apiRequest("/stories", {
+      method: "POST",
+      body: JSON.stringify(storyData),
+    }),
+
   getAll: (params = {}) => {
     const queryString = new URLSearchParams(params).toString();
     return apiRequest(`/stories${queryString ? `?${queryString}` : ""}`);

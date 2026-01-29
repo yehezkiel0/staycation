@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useCategories, useProperties, useAuth } from "../hooks/useAPI";
+import { useCategories, useProperties } from "../hooks/useAPI";
+import { useAuth } from "context/AuthContext";
 import { LoadingSpinner, ErrorMessage } from "../components/UIComponents";
 import Star from "../elements/Star";
 

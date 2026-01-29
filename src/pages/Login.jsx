@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { useAuth } from "hooks/useAPI";
+import { useAuth } from "context/AuthContext";
 import { toast } from "react-toastify";
 import Header from "parts/Header";
 import Footer from "parts/Footer";
+import { validateLogin } from "services/logic/authLogic";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -32,25 +33,6 @@ export default function Login() {
     }
   };
 
-  const validateForm = () => {
-    const newErrors = {};
-
-    if (!formData.email) {
-      newErrors.email = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Email is invalid";
-    }
-
-    if (!formData.password) {
-      newErrors.password = "Password is required";
-    } else if (formData.password.length < 6) {
-      newErrors.password = "Password must be at least 6 characters";
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
   /* eslint-disable no-unused-vars */
   const { login, loading: authLoading, error: authError } = useAuth();
   /* eslint-enable no-unused-vars */
@@ -58,7 +40,12 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!validateForm()) return;
+    const { isValid, errors: validationErrors } = validateLogin(formData);
+
+    if (!isValid) {
+      setErrors(validationErrors);
+      return;
+    }
 
     setIsLoading(true);
 
