@@ -1,4 +1,4 @@
-@import "../../assets/scss/colorVariables";
+@use "../../assets/scss/colorVariables" as *;
 
 .stars {
   display: inline-flex;

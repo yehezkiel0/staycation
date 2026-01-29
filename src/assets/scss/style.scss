@@ -79,25 +79,25 @@ body {
   border-radius: 8px;
 
   &.btn-primary {
-    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    background: linear-gradient(135deg, #1abc9c 0%, #16a085 100%);
     border: none;
-    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.2);
+    box-shadow: 0 4px 15px rgba(26, 188, 156, 0.2);
 
     &:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0, 123, 255, 0.3);
+      box-shadow: 0 6px 20px rgba(26, 188, 156, 0.3);
     }
   }
 
   &.btn-outline-primary {
-    border: 2px solid #007bff;
-    color: #007bff;
+    border: 2px solid #1abc9c;
+    color: #1abc9c;
 
     &:hover {
-      background: #007bff;
-      border-color: #007bff;
+      background: #1abc9c;
+      border-color: #1abc9c;
       transform: translateY(-1px);
-      box-shadow: 0 4px 15px rgba(0, 123, 255, 0.2);
+      box-shadow: 0 4px 15px rgba(26, 188, 156, 0.2);
     }
   }
 }
@@ -120,7 +120,7 @@ header {
   border-bottom: 1px solid $gray-200;
   width: 100%;
   position: relative;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
 
   .navbar {
     height: 80px;
@@ -140,6 +140,7 @@ header {
             padding-right: 1rem;
             &:hover {
               text-decoration: underline;
+              color: $primary;
             }
           }
         }
@@ -393,4 +394,103 @@ main {
   &:hover {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
   }
+}
+
+// Booking Form Styles
+.booking-card {
+  z-index: 10;
+}
+
+@media (max-width: 991px) {
+  .booking-card {
+    position: relative !important;
+    top: auto !important;
+  }
+}
+
+.react-datepicker-popper {
+  z-index: 9999 !important;
+}
+
+.hover-bg-light:hover {
+  background-color: #f8f9fa;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.spec-item {
+  transition: transform 0.2s ease;
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+.custom-contact-btn {
+  border: 2px solid #1abc9c;
+  color: #1abc9c;
+  background-color: transparent;
+  padding: 8px 20px;
+  font-weight: 500;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  min-width: 120px;
+  white-space: nowrap;
+
+  &:hover {
+    background-color: #1abc9c;
+    color: #ffffff !important;
+    border-color: #1abc9c;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(26, 188, 156, 0.3);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(26, 188, 156, 0.25);
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(26, 188, 156, 0.3);
+  }
+}
+
+@media (max-width: 991px) {
+  .custom-contact-btn {
+    min-width: 100px;
+    padding: 6px 16px;
+    font-size: 0.9rem;
+  }
+}
+
+// Footer Styles
+.footer-section {
+  background-color: #212529; /* Standard Dark Gray */
+  border-top: 5px solid #1abc9c; /* Teal Accent */
+}
+
+.footer-link {
+  text-decoration: none;
+  color: #adb5bd !important; /* Gray-500 */
+  transition: all 0.3s ease;
+  display: inline-block;
+
+  &:hover {
+    color: #1abc9c !important; /* Teal */
+    transform: translateX(5px);
+  }
+}
+
+.brand-text-icon .text-primary {
+  color: #1abc9c !important;
+}
+
+// Social Icons Hover in Footer
+.footer-section .btn-outline-light:hover {
+  background-color: #1abc9c;
+  border-color: #1abc9c;
+  color: #fff;
 }

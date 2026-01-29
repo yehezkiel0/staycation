@@ -1,0 +1,11 @@
+.input-group {
+  .form-control {
+    span {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 90%;
+      display: inline-block;
+    }
+  }
+}

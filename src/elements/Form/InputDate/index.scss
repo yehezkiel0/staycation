@@ -1,4 +1,4 @@
-@import "../../../assets/scss/colorVariables";
+@use "../../../assets/scss/colorVariables" as *;
 .input-date {
   .input-group {
     background-color: $white;

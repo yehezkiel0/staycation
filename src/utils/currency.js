@@ -1,7 +1,7 @@
 // Currency conversion and formatting utilities
 
 // Exchange rate USD to IDR (approximate, in real app this should come from API)
-const USD_TO_IDR_RATE = 15000; // 1 USD = 15,000 IDR (approximate)
+const USD_TO_IDR_RATE = 1; // 1 USD = 1 IDR (assuming backend sends IDR)
 
 /**
  * Convert USD to IDR

@@ -5,20 +5,15 @@ const API_BASE_URL =
 // API Helper function
 const apiRequest = async (endpoint, options = {}) => {
   const url = `${API_BASE_URL}${endpoint}`;
-  const token = localStorage.getItem("token");
 
   const config = {
     headers: {
       "Content-Type": "application/json",
       ...options.headers,
     },
+    credentials: "include", // Important: Include cookies in requests
     ...options,
   };
-
-  // Add authorization header if token exists
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
 
   try {
     const response = await fetch(url, config);
@@ -46,7 +41,7 @@ const apiRequest = async (endpoint, options = {}) => {
     // Provide more descriptive error messages
     if (error.name === "TypeError" && error.message.includes("fetch")) {
       throw new Error(
-        "Unable to connect to server. Please check if the backend is running."
+        "Unable to connect to server. Please check if the backend is running.",
       );
     }
 
@@ -68,18 +63,18 @@ export const authAPI = {
       body: JSON.stringify(userData),
     }),
 
-  getProfile: () => apiRequest("/users/profile"),
+  getProfile: () => apiRequest("/auth/me"),
 
   updateProfile: (profileData) =>
-    apiRequest("/users/profile", {
+    apiRequest("/auth/me", {
       method: "PUT",
       body: JSON.stringify(profileData),
     }),
 
-  logout: () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-  },
+  logout: () =>
+    apiRequest("/auth/logout", {
+      method: "POST",
+    }),
 };
 
 // Categories API
@@ -135,12 +130,22 @@ export const bookingsAPI = {
       body: JSON.stringify(bookingData),
     }),
 
+  getAll: (params = {}) => {
+    const queryString = new URLSearchParams(params).toString();
+    return apiRequest(`/bookings${queryString ? `?${queryString}` : ""}`);
+  },
+
   getMyBookings: (params = {}) => {
     const queryString = new URLSearchParams(params).toString();
     return apiRequest(`/users/bookings${queryString ? `?${queryString}` : ""}`);
   },
 
   getById: (id) => apiRequest(`/bookings/${id}`),
+
+  confirm: (id) =>
+    apiRequest(`/bookings/${id}/confirm`, {
+      method: "PUT",
+    }),
 
   updateStatus: (id, status) =>
     apiRequest(`/bookings/${id}/status`, {
@@ -153,6 +158,21 @@ export const bookingsAPI = {
       method: "PATCH",
       body: JSON.stringify({ reason }),
     }),
+
+  checkIn: (id) =>
+    apiRequest(`/bookings/${id}/checkin`, {
+      method: "PUT",
+    }),
+
+  checkOut: (id) =>
+    apiRequest(`/bookings/${id}/checkout`, {
+      method: "PUT",
+    }),
+
+  reset: () =>
+    apiRequest("/bookings/reset", {
+      method: "POST",
+    }),
 };
 
 // Reviews API
@@ -160,7 +180,7 @@ export const reviewsAPI = {
   getByProperty: (propertyId, params = {}) => {
     const queryString = new URLSearchParams(params).toString();
     return apiRequest(
-      `/properties/${propertyId}/reviews${queryString ? `?${queryString}` : ""}`
+      `/properties/${propertyId}/reviews${queryString ? `?${queryString}` : ""}`,
     );
   },
 
